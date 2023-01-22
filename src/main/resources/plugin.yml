@@ -1,0 +1,39 @@
+name: Umpire
+main: io.oc.Umpire.Umpire
+version: 0.0.1
+api-version: 1.19
+author: _Oc
+commands:
+  loadmap:
+    description: Loads a map
+    usage: /loadmap <mapname>
+    aliases: [load]
+  lobby:
+    description: Sends you to the lobby world
+    usage: /lobby
+  join:
+    description: Join a team
+    usage: /join <teamname>
+    aliases: [j, jointeam]
+  leave:
+    description: Leave a team
+    usage: /leave
+  ready:
+    description: Set your team as ready to start the match
+    usage: /ready
+  unready:
+    description: Unready your team
+    usage: /unready
+  unload:
+    description: Unloads a map
+    usage: /unload
+  reloadmap:
+    description: Reloads a map
+    usage: /reloadmap
+  joinmatch:
+    description: join a players match
+    usage: /joinmatch <player>
+  viewinventory:
+    description: view a players inventory
+    usage: /viewinventory <player>
+    aliases: [vi]
