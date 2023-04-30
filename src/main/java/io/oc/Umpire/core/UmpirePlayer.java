@@ -14,11 +14,9 @@ public class UmpirePlayer {
 
     public UmpireTeam team;
     public UmpireMatch match;
-    private ChatColor nameColor;
     public Player bukkitPlayer;
     public void setColor(ChatColor color){
-        /*nameColor = color;
-        bukkitPlayer.setDisplayName(nameColor + bukkitPlayer.getName() + ChatColor.WHITE);
-        bukkitPlayer.setPlayerListName(nameColor + bukkitPlayer.getName() + ChatColor.WHITE);*/
+        bukkitPlayer.setDisplayName(color + bukkitPlayer.getName() + ChatColor.WHITE);
+        bukkitPlayer.setPlayerListName(color + bukkitPlayer.getName() + ChatColor.WHITE);
     }
 }

@@ -88,7 +88,7 @@ public class VoidListener implements Listener {
         else{
             if(!up.team.isObs){
                 if (region.regionType == RegionType.TEAM){
-                    if (region.teams.contains(up.team)){
+                    if (!region.teams.contains(up.team)){
                         CancelEvent.setCancelled(true);
                     }
                 }
