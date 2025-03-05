@@ -66,6 +66,7 @@ public class UmpireMatch {
     }
     public void addPlayer(UmpirePlayer player) {
         obsTeam.addPlayer(player);
+        player.wipePlayer();
         player.match = this;
     }
 
@@ -105,9 +106,7 @@ public class UmpireMatch {
         //full heal, full food, clear inventory, gamemode
         for(UmpirePlayer up: getPlayers()){
             Player p = up.bukkitPlayer;
-            p.setHealth(p.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
-            p.setFoodLevel(20);
-            p.getInventory().clear();
+            up.wipePlayer();
             p.setGameMode(GameMode.SURVIVAL);
         }
 
