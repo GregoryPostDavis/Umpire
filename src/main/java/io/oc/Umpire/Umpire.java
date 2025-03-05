@@ -45,7 +45,7 @@ public class Umpire extends JavaPlugin{
                 pluginCommand.setExecutor(handler);
             }
             else{
-                getLogger().info("Command " + command + "has not been added to plugin.yml file, skipping it");
+                getLogger().info("Command " + command + " has not been added to plugin.yml file, skipping it");
             }
         }
 
