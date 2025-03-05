@@ -241,7 +241,7 @@ public class Commands extends HashMap<String, UmpireCommand> {
 
     private boolean joinmatch(String[] args, Player p, UmpirePlayer up){
         UmpirePlayer target = Umpire.getPlayer(Bukkit.getPlayer(args[0]));
-        p.getInventory().clear();
+        up.wipePlayer();
         p.setGameMode(GameMode.CREATIVE);
         target.match.addPlayer(up);
         p.teleport(target.match.obsTeam.spawnPoint);
