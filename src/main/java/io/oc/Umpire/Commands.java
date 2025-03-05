@@ -1,9 +1,17 @@
 package io.oc.Umpire;
 
-import io.oc.Umpire.core.UmpireMatch;
-import io.oc.Umpire.core.UmpirePlayer;
-import io.oc.Umpire.core.UmpireTeam;
-import io.oc.Umpire.utils.MapUtils;
+import static io.oc.Umpire.Umpire.getInstance;
+import static io.oc.Umpire.utils.MapUtils.makeWorldFolder;
+import static org.bukkit.Bukkit.getLogger;
+import static org.bukkit.Bukkit.getPlayer;
+import static org.bukkit.Bukkit.getServer;
+
+import java.io.File;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Random;
+import java.util.Set;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -11,11 +19,10 @@ import org.bukkit.command.BlockCommandSender;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.*;
-
-import static io.oc.Umpire.Umpire.getInstance;
-import static io.oc.Umpire.utils.MapUtils.makeWorldFolder;
-import static org.bukkit.Bukkit.*;
+import io.oc.Umpire.core.UmpireMatch;
+import io.oc.Umpire.core.UmpirePlayer;
+import io.oc.Umpire.core.UmpireTeam;
+import io.oc.Umpire.utils.MapUtils;
 
 interface RunUmpireCommand {
     boolean run(String[] args, Player p, UmpirePlayer up);
@@ -67,7 +74,8 @@ public class Commands extends HashMap<String, UmpireCommand> {
         this.put("reloadmap", new UmpireCommand(Set.of(0),this::reloadmap, false));
         this.put("joinmatch", new UmpireCommand(Set.of(1),this::joinmatch, false));
         this.put("viewinventory", new UmpireCommand(Set.of(1),this::viewinventory, false));
-    }
+        this.put("maps", new UmpireCommand(Set.of(0,1),this::maps,false));
+        }
 
     private boolean viewinventory(String[] args, Player p, UmpirePlayer up) {
         Player target = Bukkit.getPlayer(args[0]);
@@ -246,5 +254,43 @@ public class Commands extends HashMap<String, UmpireCommand> {
         target.match.addPlayer(up);
         p.teleport(target.match.obsTeam.spawnPoint);
         return false;
+    }
+    
+    private boolean maps(String[] args, Player p, UmpirePlayer up) {
+    	String[] mapFiles = (new File("maps")).list(); //Creates new file 'maps' and then lists everything in the directory 'maps'
+    	int upperbound;
+    	int lowerbound;
+
+    	if(args.length == 0 || args[0].matches("\\d")) {//if maps [x]
+    		int pageNum;
+    		if(args.length == 0) {
+    			pageNum = 1;
+    		}else {
+    			pageNum = Integer.parseInt(args[0]);
+    		}
+    		
+    		
+    		int maxPages = mapFiles.length/10;
+    		if(mapFiles.length%10 > 0)
+    			maxPages++;
+    		
+    		if(pageNum > maxPages || pageNum < 1) {
+    			p.sendMessage("This page does not exist, there are only " + maxPages + " pages of maps");
+    		}else {
+    			upperbound = Math.min(pageNum * 10, mapFiles.length);
+    			lowerbound = (pageNum - 1) * 10;
+    			
+    			p.sendMessage("Showing Page " + pageNum + " of " + maxPages);
+    			for(int i = lowerbound; i < upperbound; i++) {
+    				p.sendMessage(mapFiles[i]);
+    			}
+    			return true;
+    		}
+    		
+    	}else {
+    		p.sendMessage("Invalid Argument");
+    	}
+    	
+    	return false;
     }
 }
