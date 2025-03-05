@@ -105,7 +105,7 @@ public class UmpireMatch {
         //full heal, full food, clear inventory, gamemode
         for(UmpirePlayer up: getPlayers()){
             Player p = up.bukkitPlayer;
-            p.setHealth(p.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
+            p.setHealth(p.getAttribute(Attribute.MAX_HEALTH).getValue());
             p.setFoodLevel(20);
             p.getInventory().clear();
             p.setGameMode(GameMode.SURVIVAL);

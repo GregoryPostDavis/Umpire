@@ -1,7 +1,7 @@
 name: Umpire
 main: io.oc.Umpire.Umpire
 version: 0.0.1
-api-version: 1.19
+api-version: 1.21
 author: _Oc
 commands:
   loadmap:
