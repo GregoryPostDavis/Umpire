@@ -43,7 +43,11 @@ public class PlayerResourceListener implements Listener{
 			UmpirePlayer up = Umpire.getPlayer(p);
 			if(up.match != null) {
 				if(up.match.state == State.PLAYING) {
-					Event.setCancelled(false);
+					if (up.team.isObs) {
+						Event.setCancelled(true);
+					}else {
+						Event.setCancelled(false);
+					}
 				}else {
 					Event.setCancelled(true);
 				}
