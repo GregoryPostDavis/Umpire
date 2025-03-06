@@ -36,6 +36,7 @@ public class Umpire extends JavaPlugin{
         getServer().getPluginManager().registerEvents(new VictoryConditionListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerConnectionListener(), this);
         getServer().getPluginManager().registerEvents(new ViewInventoryListener(), this);
+        getServer().getPluginManager().registerEvents(new PlayerResourceListener(), this);
 
         Commands commands = new Commands();
         CommandHandler handler = new CommandHandler();
