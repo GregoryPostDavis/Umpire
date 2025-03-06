@@ -57,7 +57,7 @@ class UmpireCommand{
         }
 
         UmpirePlayer up = Umpire.getPlayer(p);
-        getLogger().info("running runner as " + p.getName() + "with: " + args);
+        getLogger().info("Running UmpireCommand as " + p.getName() + " with: " + Arrays.toString(args));
         return runner.run(args, p, up);
     }
 }

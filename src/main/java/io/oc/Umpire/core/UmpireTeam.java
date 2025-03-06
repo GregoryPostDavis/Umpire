@@ -42,7 +42,7 @@ public class UmpireTeam {
     	player.wipePlayer();
         players.remove(player);
         player.team = null;
-        player.setColor(ChatColor.WHITE);
+        player.clearColor();
         scoreboardTeam.removeEntry(player.bukkitPlayer.getName());
     }
 }

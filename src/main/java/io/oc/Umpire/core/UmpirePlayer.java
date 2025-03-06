@@ -1,13 +1,11 @@
 package io.oc.Umpire.core;
 
-import io.oc.Umpire.core.UmpireMatch;
-import io.oc.Umpire.core.UmpireTeam;
 import org.bukkit.ChatColor;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 
-import static org.bukkit.Bukkit.getPlayer;
+import static org.bukkit.Bukkit.getLogger;
 
 public class UmpirePlayer {
     public UmpirePlayer(Player bukkitPlayer){
@@ -21,8 +19,13 @@ public class UmpirePlayer {
         bukkitPlayer.setDisplayName(color + bukkitPlayer.getName() + ChatColor.WHITE);
         bukkitPlayer.setPlayerListName(color + bukkitPlayer.getName() + ChatColor.WHITE);
     }
+
+    public void clearColor(){
+        setColor(ChatColor.WHITE);
+    }
     
     public void wipePlayer() {
+        getLogger().info("Wiping player " + bukkitPlayer.getName());
     	bukkitPlayer.setLevel(0);
     	bukkitPlayer.setExp(0);
     	bukkitPlayer.setHealth(bukkitPlayer.getAttribute(Attribute.MAX_HEALTH).getValue());

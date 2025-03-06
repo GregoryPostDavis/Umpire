@@ -10,6 +10,7 @@ import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.Team;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -25,6 +26,7 @@ public class Umpire extends JavaPlugin{
     public void onEnable() {
         instance = this;
         scoreboard = getServer().getScoreboardManager().getMainScoreboard();
+        scoreboard.getTeams().forEach(Team::unregister);
 
         getLogger().info("Adding Listeners");
         getServer().getPluginManager().registerEvents(new SwimmingListener(), this);
@@ -76,20 +78,13 @@ public class Umpire extends JavaPlugin{
                 return umpirePlayer;
             }
         }
+        return null;
+    }
+
+    public static UmpirePlayer addPlayer(Player player){
         UmpirePlayer newPlayer = new UmpirePlayer(player);
         players.add(newPlayer);
         return newPlayer;
-    }
-
-
-
-    public boolean isPlayer(Player player){
-        for (UmpirePlayer umpirePlayer : players){
-            if (umpirePlayer.bukkitPlayer.getUniqueId().equals(player.getUniqueId())){
-                return true;
-            }
-        }
-        return false;
     }
 
     public static UmpireMatch getMatch(String worldName){
