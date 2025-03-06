@@ -7,6 +7,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 
 import io.oc.Umpire.Umpire;
+import io.oc.Umpire.core.State;
 import io.oc.Umpire.core.UmpirePlayer;
 
 public class PlayerResourceListener implements Listener{
@@ -16,10 +17,19 @@ public class PlayerResourceListener implements Listener{
 		if(Event.getEntity() instanceof Player) {
 			Player p = (Player) Event.getEntity();
 			UmpirePlayer up = Umpire.getPlayer(p);
-			if(up.inMatch) {
-				//take damage as normal
-				Event.setCancelled(false);
+			if(up.match != null) {
+				if(up.match.state == State.PLAYING) {
+					if (up.team.isObs) {
+						Event.setCancelled(true);
+					}else {
+						Event.setCancelled(false);
+					}
+				}else {
+					Event.setCancelled(true);
+				}
+				
 			}else {
+				//Match is null, not in active game, ignore damage
 				Event.setCancelled(true);
 			}
 		}
@@ -31,10 +41,15 @@ public class PlayerResourceListener implements Listener{
 		if(Event.getEntity() instanceof Player) {
 			Player p = (Player) Event.getEntity();
 			UmpirePlayer up = Umpire.getPlayer(p);
-			if(up.inMatch) {
-				//take hunger as normal
-				Event.setCancelled(false);
+			if(up.match != null) {
+				if(up.match.state == State.PLAYING) {
+					Event.setCancelled(false);
+				}else {
+					Event.setCancelled(true);
+				}
+				
 			}else {
+				//Match is null, not in active game, ignore damage
 				Event.setCancelled(true);
 			}
 		}

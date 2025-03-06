@@ -107,7 +107,6 @@ public class UmpireMatch {
         for(UmpirePlayer up: getPlayers()){
             Player p = up.bukkitPlayer;
             up.wipePlayer();
-            up.inMatch = true;
             p.setGameMode(GameMode.SURVIVAL);
         }
 
@@ -183,7 +182,6 @@ public class UmpireMatch {
         broadcast("Game Over! " + team.color + team.teamname + ChatColor.WHITE + " wins the match!");
         for(UmpirePlayer up : getPlayers()){
             up.bukkitPlayer.setGameMode(GameMode.SPECTATOR);
-            up.inMatch = false;
         }
     }
 }

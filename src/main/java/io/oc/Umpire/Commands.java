@@ -109,7 +109,6 @@ public class Commands extends HashMap<String, UmpireCommand> {
         UmpireMatch match = new UmpireMatch(worldFolder, bestMap);
 
         match.addPlayer(up);
-        up.inMatch = false;
         p.teleport(match.obsTeam.spawnPoint);
 
 
@@ -173,7 +172,6 @@ public class Commands extends HashMap<String, UmpireCommand> {
         if(up.team != null) {
             up.team.removePlayer(up);
         }
-        up.inMatch = false;
         up.team = up.match.obsTeam;
         up.team.addPlayer(up);
         getLogger().info(up.match.map.world.getName());
@@ -213,7 +211,6 @@ public class Commands extends HashMap<String, UmpireCommand> {
             up.team.removePlayer(up);
         }
         up.team = null;
-        up.inMatch = false;
         p.teleport(getServer().getWorlds().get(0).getSpawnLocation());
 
         up.match.deload();
@@ -224,7 +221,6 @@ public class Commands extends HashMap<String, UmpireCommand> {
     private boolean reloadmap(String[] args, Player p, UmpirePlayer up){
         UmpireTeam oldTeam = up.team;
         up.team = null;
-        up.inMatch = false;
         UmpireMatch oldMatch = up.match;
 
         String worldFolder = makeWorldFolder(oldMatch.map.mapName);
@@ -254,7 +250,6 @@ public class Commands extends HashMap<String, UmpireCommand> {
     private boolean joinmatch(String[] args, Player p, UmpirePlayer up){
         UmpirePlayer target = Umpire.getPlayer(Bukkit.getPlayer(args[0]));
         up.wipePlayer();
-        up.inMatch = false;
         p.setGameMode(GameMode.CREATIVE);
         target.match.addPlayer(up);
         p.teleport(target.match.obsTeam.spawnPoint);
