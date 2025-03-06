@@ -37,3 +37,7 @@ commands:
     description: view a players inventory
     usage: /viewinventory <player>
     aliases: [vi]
+  maps:
+    description: view the maps on the server
+    usage: /maps <page>
+    aliases: [m]
