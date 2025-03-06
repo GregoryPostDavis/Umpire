@@ -31,6 +31,7 @@ public class UmpireTeam {
         scoreboardTeam.setColor(this.color);
     }
     public void addPlayer(UmpirePlayer player) {
+    	player.wipePlayer();
         getLogger().info("Running addplayer");
         players.add(player);
         player.team = this;
@@ -38,6 +39,7 @@ public class UmpireTeam {
         scoreboardTeam.addEntry(player.bukkitPlayer.getName());
     }
     public void removePlayer(UmpirePlayer player) {
+    	player.wipePlayer();
         players.remove(player);
         player.team = null;
         player.setColor(ChatColor.WHITE);
