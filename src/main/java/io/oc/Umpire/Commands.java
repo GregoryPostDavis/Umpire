@@ -161,7 +161,7 @@ public class Commands extends HashMap<String, UmpireCommand> {
         up.team.addPlayer(up);
         p.teleport(newTeam.spawnPoint);
 
-        up.match.broadcast(newTeam.color + p.getName() + " has joined team " + newTeam.teamname + ChatColor.WHITE);
+        up.match.broadcast(newTeam.color + p.getName() + ChatColor.WHITE + " has joined team " + newTeam.color +  newTeam.teamname + ChatColor.WHITE);
         return true;
 
     }
@@ -175,7 +175,7 @@ public class Commands extends HashMap<String, UmpireCommand> {
         getLogger().info(up.team.spawnPoint.toString());
         p.teleport(up.team.spawnPoint);
 
-        up.match.broadcast(up.match.obsTeam.color + p.getName() + " has joined team " + up.match.obsTeam.teamname + ChatColor.WHITE);
+        up.match.broadcast(up.match.obsTeam.color + p.getName() + ChatColor.WHITE + " has joined team " + up.match.obsTeam.color + up.match.obsTeam.teamname + ChatColor.WHITE);
 
         return true;
     }
@@ -184,7 +184,7 @@ public class Commands extends HashMap<String, UmpireCommand> {
         if (up.team != null){
             up.team.readyState = true;
 
-            up.match.broadcast(up.team.color + up.team.teamname + " is ready" + ChatColor.WHITE);
+            up.match.broadcast(up.team.color + up.team.teamname + ChatColor.WHITE + " is " + ChatColor.GREEN + "ready" + ChatColor.WHITE);
 
             up.match.checkIfStart();
             return true;
@@ -197,7 +197,7 @@ public class Commands extends HashMap<String, UmpireCommand> {
             up.team.readyState = false;
             up.match.cancelStart();
 
-            up.match.broadcast(up.team.color + up.team.teamname + " is no longer ready" + ChatColor.WHITE);
+            up.match.broadcast(up.team.color + up.team.teamname + ChatColor.WHITE +  " is " + ChatColor.RED + "not ready" + ChatColor.WHITE);
 
             return true;
         }

@@ -108,23 +108,8 @@ public class UmpireMatch {
     }
 
     private void loadFromXML(Document doc){
-        Element rootElement = doc.getRootElement();
-        List<Element> teamElements = rootElement.getChild("teams").getChildren("team");
-        for (Element teamElement : teamElements){
-            ChatColor color = AutorefColors.TEAMS_OPTION_COLOR.get(teamElement.getAttributeValue("color").toLowerCase());
-            String teamName = teamElement.getChildText("name");
-            UmpireTeam newTeam = new UmpireTeam(color, teamName, false);
+        map.getMetaData(doc);
 
-            Element loc = teamElement.getChild("spawn").getChild("location");
-            String pos = loc.getAttributeValue("pos");
-            String yawString = loc.getAttributeValue("yaw");
-
-            newTeam.spawnPoint = stringToLocation(pos+','+yawString, map.getWorld()).add(new Location(map.getWorld(),0.5,0.5,0.5));
-            getLogger().info("Adding team: " + newTeam.teamname);
-            teams.add(newTeam);
-        }
-
-        this.obsTeam.spawnPoint = stringToLocation(rootElement.getChild("startregion").getAttributeValue("spawn"), map.getWorld()).add(new Location(map.getWorld(),0.5,0.5,0.5));
         map.loadMapFromXML(doc, this);
     }
 
