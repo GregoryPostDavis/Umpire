@@ -293,4 +293,10 @@ public class Commands extends HashMap<String, UmpireCommand> {
     	
     	return false;
     }
+    
+    private boolean practice(String[] args, Player p, UmpirePlayer up) {
+    	
+    	return false;
+    }
+    
 }
