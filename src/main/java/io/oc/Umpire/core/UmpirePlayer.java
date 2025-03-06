@@ -12,11 +12,13 @@ import static org.bukkit.Bukkit.getPlayer;
 public class UmpirePlayer {
     public UmpirePlayer(Player bukkitPlayer){
         this.bukkitPlayer = bukkitPlayer;
+        this.inMatch = false;
     }
 
     public UmpireTeam team;
     public UmpireMatch match;
     public Player bukkitPlayer;
+    public boolean inMatch;
     public void setColor(ChatColor color){
         bukkitPlayer.setDisplayName(color + bukkitPlayer.getName() + ChatColor.WHITE);
         bukkitPlayer.setPlayerListName(color + bukkitPlayer.getName() + ChatColor.WHITE);
