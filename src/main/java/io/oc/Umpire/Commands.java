@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Random;
 import java.util.Set;
 
+import io.oc.Umpire.core.UmpireMap;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -63,6 +64,9 @@ class UmpireCommand{
 }
 public class Commands extends HashMap<String, UmpireCommand> {
     Commands(){
+
+        //Commands need to be added here, below, and in plugin.yml
+
         getLogger().info("Adding Commands");
         this.put("loadmap", new UmpireCommand(Set.of(1,2,3,4,5,6,7,8,9,10),this::loadmap,false));
         this.put("lobby", new UmpireCommand(Set.of(0),this::lobby, false));
@@ -75,8 +79,7 @@ public class Commands extends HashMap<String, UmpireCommand> {
         this.put("joinmatch", new UmpireCommand(Set.of(1),this::joinmatch, false));
         this.put("viewinventory", new UmpireCommand(Set.of(1),this::viewinventory, false));
         this.put("maps", new UmpireCommand(Set.of(0,1),this::maps,false));
-        }
-
+    }
     private boolean viewinventory(String[] args, Player p, UmpirePlayer up) {
         Player target = Bukkit.getPlayer(args[0]);
         if (target == null){
@@ -89,8 +92,6 @@ public class Commands extends HashMap<String, UmpireCommand> {
         p.openInventory(target.getInventory());
         return true;
     }
-
-    //Commands need to be added here, below, and in plugin.yml
     private boolean loadmap(String[] args, Player p, UmpirePlayer up){
         UmpireMatch oldMatch = up.match;
 
@@ -100,17 +101,13 @@ public class Commands extends HashMap<String, UmpireCommand> {
         String bestMap = MapUtils.findMap(mapName);
         if (bestMap == null){return false;}
 
-        String worldFolder = makeWorldFolder(bestMap);
-        if (worldFolder == null){return false;}
-
-        getLogger().info("Creating world at: " + worldFolder);
         p.sendMessage("Loading Map: " + bestMap);
+        UmpireMap umpireMap = new UmpireMap(bestMap);
 
-        UmpireMatch match = new UmpireMatch(worldFolder, bestMap);
+        UmpireMatch match = new UmpireMatch(umpireMap);
 
         match.addPlayer(up);
         p.teleport(match.obsTeam.spawnPoint);
-
 
         getInstance().addMatch(match);
 
@@ -223,13 +220,10 @@ public class Commands extends HashMap<String, UmpireCommand> {
         up.team = null;
         UmpireMatch oldMatch = up.match;
 
-        String worldFolder = makeWorldFolder(oldMatch.map.mapName);
-        if (worldFolder == null){return false;}
-
-        getLogger().info("Creating world at: " + worldFolder);
         p.sendMessage("Reloading Map");
+        UmpireMap umpireMap = new UmpireMap(oldMatch.map.mapName);
 
-        UmpireMatch match = new UmpireMatch(worldFolder, oldMatch.map.mapName);
+        UmpireMatch match = new UmpireMatch(umpireMap);
 
         for(UmpirePlayer otherPlayer: oldMatch.getPlayers()){
             match.addPlayer(otherPlayer);

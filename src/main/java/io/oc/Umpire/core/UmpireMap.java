@@ -4,6 +4,7 @@ import org.apache.commons.io.FileUtils;
 import org.bukkit.*;
 import org.jdom2.Document;
 import org.jdom2.Element;
+import org.jdom2.input.SAXBuilder;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -25,20 +26,43 @@ public class UmpireMap {
     so that events that happen in a world right at startup are garanteed
     to still able to be associated with a match (eg. liquid flowing needs to be prevented from tick 1).*/
     List<UmpireRegion> regions = new ArrayList<>();
-    UmpireMatch match;
+    public Document xmlFile;
 
     List<Mechanism> mechanisms = new ArrayList<>();
     public List<VictoryCondition> victoryConditions = new ArrayList<>();
-    public UmpireMap(String worldFolder, UmpireMatch match, String mapName){
+    /*public UmpireMap(String worldFolder, UmpireMatch match, String mapName){
         this.worldName = worldFolder;
         this.match = match;
         this.mapName = mapName;
+    }*/
+    public UmpireMap(){}
+    public UmpireMap(String mapName){
+        this.mapName = mapName;
+        this.worldName = makeWorldFolder(mapName);//Might return null if the map file is invalid?
+        getLogger().info("Creating world at: " + this.worldName);
+
+        File xmlFile = new File(this.worldName + "/autoreferee.xml");
+        if (!xmlFile.isFile()) {
+            getLogger().info("XML file not found");
+        }
+        else {
+            try {
+                SAXBuilder saxBuilder = new SAXBuilder();
+                this.xmlFile = saxBuilder.build(xmlFile);
+            } catch (Exception e) {
+                getLogger().info("Failed to parse autoreferee.xml file: " + e);
+            }
+        }
     }
     public World getWorld(){
         return world;
     }
 
-    public void loadMapFromXML(Document doc){
+    public void loadMetadataFromXML(Document doc){
+
+    }
+
+    public void loadMapFromXML(Document doc, UmpireMatch match){
 
         //Spawn Region
         Element rootElement = doc.getRootElement();

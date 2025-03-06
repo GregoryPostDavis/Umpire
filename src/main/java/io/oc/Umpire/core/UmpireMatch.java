@@ -30,29 +30,15 @@ public class UmpireMatch {
     CountdownTimer startTimer;
     public boolean isEmpty;
 
-    public UmpireMatch(String worldFolder, String mapName){
-        UmpireMap map = new UmpireMap(worldFolder, this, mapName);
+    public UmpireMatch(UmpireMap map){
+        //UmpireMap map = new UmpireMap(worldFolder, this, mapName);
         this.map = map;
         map.startWorld();
 
+        loadFromXML(this.map.xmlFile);
+
         teams.add(obsTeam);
         this.state = State.PREGAME;
-
-        File xmlFile = new File(worldFolder + "/autoreferee.xml");
-        if (!xmlFile.isFile()) {
-            getLogger().info("XML file not found");
-        }
-        else {
-            try {
-                SAXBuilder saxBuilder = new SAXBuilder();
-                Document doc = saxBuilder.build(xmlFile);
-                loadFromXML(doc);
-            } catch (Exception e) {
-                getLogger().info("Failed to parse autoreferee.xml file: " + e);
-            }
-        }
-
-
     }
 
     public void broadcast(String message){
@@ -139,7 +125,7 @@ public class UmpireMatch {
         }
 
         this.obsTeam.spawnPoint = stringToLocation(rootElement.getChild("startregion").getAttributeValue("spawn"), map.getWorld()).add(new Location(map.getWorld(),0.5,0.5,0.5));
-        map.loadMapFromXML(doc);
+        map.loadMapFromXML(doc, this);
     }
 
     public UmpireTeam getTeam(String teamName){
