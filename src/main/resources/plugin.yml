@@ -40,4 +40,4 @@ commands:
   maps:
     description: view the maps on the server
     usage: /maps <page>
-    aliases: [m]
+    aliases: [m, maplist]
