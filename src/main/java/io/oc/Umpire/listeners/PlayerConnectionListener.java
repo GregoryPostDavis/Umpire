@@ -16,13 +16,16 @@ import static org.bukkit.Bukkit.getServer;
 
 public class PlayerConnectionListener implements Listener {
     @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent Event){
-        Player p = Event.getPlayer();
-        if(!Umpire.getInstance().isPlayer(p)){
+    public void onPlayerJoin(PlayerJoinEvent event){
+        Player p = event.getPlayer();
+        UmpirePlayer up = Umpire.getPlayer(p);
+        if(up == null){
             getLogger().info("Could not find player, sending them to spawn");
             p.teleport(getServer().getWorlds().get(0).getSpawnLocation());
+            up = Umpire.addPlayer(p);
+            up.wipePlayer();
         }
-        UmpirePlayer up = Umpire.getPlayer(p); //Getting a player that has not yet been registered registers them
+
         if (up.match != null && up.match.map.world == null){
             getLogger().info("Map is now null, sending player to lobby spawn");
             up.match = null;
@@ -31,15 +34,15 @@ public class PlayerConnectionListener implements Listener {
         }
     }
     @EventHandler
-    public void onPlayerTeleport(PlayerTeleportEvent Event){
-        if(Event.getTo()==null || Event.getTo().getWorld().equals(Event.getFrom().getWorld())){
+    public void onPlayerTeleport(PlayerTeleportEvent event){
+        if(event.getTo()==null || event.getTo().getWorld().equals(event.getFrom().getWorld())){
             return;
         }
-        UmpireMatch match = Umpire.getInstance().getMatch(Event.getTo().getWorld().getName());
+        UmpireMatch match = Umpire.getInstance().getMatch(event.getTo().getWorld().getName());
         if(match == null){
             return;
         }
-        Player p = (Player) Event.getPlayer();
+        Player p = event.getPlayer();
         UmpirePlayer up = Umpire.getPlayer(p);
         p.getInventory().clear();
         p.setGameMode(GameMode.CREATIVE);

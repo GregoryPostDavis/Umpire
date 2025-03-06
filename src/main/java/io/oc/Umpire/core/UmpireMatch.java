@@ -61,7 +61,12 @@ public class UmpireMatch {
     }
 
     public void broadcastTitle(String title, String subtitle){
-        getPlayers().forEach(p -> p.bukkitPlayer.sendTitle(title, subtitle, 5, 60, 20));
+        Set<UmpirePlayer> players = getPlayers();
+        for(UmpirePlayer player : players){
+            player.bukkitPlayer.sendTitle(title, subtitle, 5, 60, 20);
+            getLogger().info("Broadcasting to " + player.bukkitPlayer.getName());
+        }
+        //getPlayers().forEach(p -> p.bukkitPlayer.sendTitle(title, subtitle, 5, 60, 20));
         //TODO test
     }
     public void addPlayer(UmpirePlayer player) {
