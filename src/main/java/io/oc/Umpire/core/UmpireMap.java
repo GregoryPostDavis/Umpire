@@ -1,8 +1,8 @@
 package io.oc.Umpire.core;
 
+import io.oc.Umpire.utils.AutorefColors;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.*;
-import org.jdom2.Document;
 import org.jdom2.Element;
 
 import java.io.File;
@@ -20,28 +20,44 @@ public class UmpireMap {
     //Team Regions
     public World world;
     public String worldName;
-    public String mapName;
+    public MapDescriptor mapDescriptor;
     /*worldName is used to identify the match with the world before the world is loaded
     so that events that happen in a world right at startup are garanteed
     to still able to be associated with a match (eg. liquid flowing needs to be prevented from tick 1).*/
     List<UmpireRegion> regions = new ArrayList<>();
-    UmpireMatch match;
 
     List<Mechanism> mechanisms = new ArrayList<>();
     public List<VictoryCondition> victoryConditions = new ArrayList<>();
-    public UmpireMap(String worldFolder, UmpireMatch match, String mapName){
-        this.worldName = worldFolder;
-        this.match = match;
-        this.mapName = mapName;
+    public UmpireMap(){}
+    public UmpireMap(MapDescriptor mapDescriptor){
+        this.mapDescriptor = mapDescriptor;
+        this.worldName = makeWorldFolder(mapDescriptor.mapName);//Might return null if the map file is invalid?
+        getLogger().info("Creating world at: " + this.worldName);
     }
     public World getWorld(){
         return world;
     }
 
-    public void loadMapFromXML(Document doc){
+    public void loadMapFromXML(UmpireMatch match){
+        //Team List and Spawn Points
+        Element rootElement = this.mapDescriptor.xmlFile.getRootElement();
+        List<Element> teamElements = rootElement.getChild("teams").getChildren("team");
+        for (Element teamElement : teamElements){
+            ChatColor color = AutorefColors.TEAMS_OPTION_COLOR.get(teamElement.getAttributeValue("color").toLowerCase());
+            String teamName = teamElement.getChildText("name");
+            UmpireTeam newTeam = new UmpireTeam(color, teamName, false);
+
+            Element loc = teamElement.getChild("spawn").getChild("location");
+            String pos = loc.getAttributeValue("pos");
+            String yawString = loc.getAttributeValue("yaw");
+
+            newTeam.spawnPoint = stringToLocation(pos+','+yawString, getWorld()).add(new Location(getWorld(),0.5,0.5,0.5));
+            getLogger().info("Adding team: " + newTeam.teamname);
+            match.teams.add(newTeam);
+        }
+        match.obsTeam.spawnPoint = stringToLocation(rootElement.getChild("startregion").getAttributeValue("spawn"), getWorld()).add(new Location(getWorld(),0.5,0.5,0.5));
 
         //Spawn Region
-        Element rootElement = doc.getRootElement();
         Element spawnCuboid = rootElement.getChild("startregion").getChild("cuboid");
         Location corner1 = stringToLocation(spawnCuboid.getAttributeValue("max"),world).add(new Location(world, 1, 1, 1));
         Location corner2 = stringToLocation(spawnCuboid.getAttributeValue("min"),world);

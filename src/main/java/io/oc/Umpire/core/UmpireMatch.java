@@ -1,24 +1,12 @@
 package io.oc.Umpire.core;
 
 import io.oc.Umpire.*;
-import io.oc.Umpire.utils.AutorefColors;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
-import org.bukkit.Location;
-import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
-import org.jdom2.Document;
-import org.jdom2.Element;
-import org.jdom2.input.SAXBuilder;
-
-import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-import static io.oc.Umpire.utils.MapUtils.stringToLocation;
 import static org.bukkit.Bukkit.getLogger;
 
 public class UmpireMatch {
@@ -30,29 +18,14 @@ public class UmpireMatch {
     CountdownTimer startTimer;
     public boolean isEmpty;
 
-    public UmpireMatch(String worldFolder, String mapName){
-        UmpireMap map = new UmpireMap(worldFolder, this, mapName);
+    public UmpireMatch(UmpireMap map){
         this.map = map;
         map.startWorld();
 
+        map.loadMapFromXML(this);
+
         teams.add(obsTeam);
         this.state = State.PREGAME;
-
-        File xmlFile = new File(worldFolder + "/autoreferee.xml");
-        if (!xmlFile.isFile()) {
-            getLogger().info("XML file not found");
-        }
-        else {
-            try {
-                SAXBuilder saxBuilder = new SAXBuilder();
-                Document doc = saxBuilder.build(xmlFile);
-                loadFromXML(doc);
-            } catch (Exception e) {
-                getLogger().info("Failed to parse autoreferee.xml file: " + e);
-            }
-        }
-
-
     }
 
     public void broadcast(String message){
@@ -119,27 +92,6 @@ public class UmpireMatch {
         getLogger().info("Starting match!");
         broadcastTitle("Go!", "");
         broadcast("Go!");
-    }
-
-    private void loadFromXML(Document doc){
-        Element rootElement = doc.getRootElement();
-        List<Element> teamElements = rootElement.getChild("teams").getChildren("team");
-        for (Element teamElement : teamElements){
-            ChatColor color = AutorefColors.TEAMS_OPTION_COLOR.get(teamElement.getAttributeValue("color").toLowerCase());
-            String teamName = teamElement.getChildText("name");
-            UmpireTeam newTeam = new UmpireTeam(color, teamName, false);
-
-            Element loc = teamElement.getChild("spawn").getChild("location");
-            String pos = loc.getAttributeValue("pos");
-            String yawString = loc.getAttributeValue("yaw");
-
-            newTeam.spawnPoint = stringToLocation(pos+','+yawString, map.getWorld()).add(new Location(map.getWorld(),0.5,0.5,0.5));
-            getLogger().info("Adding team: " + newTeam.teamname);
-            teams.add(newTeam);
-        }
-
-        this.obsTeam.spawnPoint = stringToLocation(rootElement.getChild("startregion").getAttributeValue("spawn"), map.getWorld()).add(new Location(map.getWorld(),0.5,0.5,0.5));
-        map.loadMapFromXML(doc);
     }
 
     public UmpireTeam getTeam(String teamName){
