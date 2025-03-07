@@ -3,6 +3,8 @@ package io.oc.Umpire.core;
 import io.oc.Umpire.*;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
+import org.bukkit.Instrument;
+import org.bukkit.Note;
 import org.bukkit.entity.Player;
 import java.util.ArrayList;
 import java.util.Set;
@@ -16,7 +18,6 @@ public class UmpireMatch {
     public UmpireMap map;
     public State state;
     CountdownTimer startTimer;
-    public boolean isEmpty;
 
     public UmpireMatch(UmpireMap map){
         this.map = map;
@@ -42,6 +43,11 @@ public class UmpireMatch {
         //getPlayers().forEach(p -> p.bukkitPlayer.sendTitle(title, subtitle, 5, 60, 20));
         //TODO test
     }
+
+    public void broadcastNote(Note note){
+        getPlayers().forEach(p -> p.bukkitPlayer.playNote(p.bukkitPlayer.getLocation(), Instrument.PLING, note));
+    }
+
     public void addPlayer(UmpirePlayer player) {
         obsTeam.addPlayer(player);
         player.wipePlayer();
@@ -57,7 +63,7 @@ public class UmpireMatch {
     public void checkIfStart() {
         for (UmpireTeam team : teams){
             //Don't start the game if there is a legitamate (not obs or empty) team that is not ready
-            if (!team.isObs && !team.readyState && team.players.size() != 0){
+            if (!team.isObs && !team.readyState && !team.players.isEmpty()){
                 return;
             }
         }
@@ -91,6 +97,7 @@ public class UmpireMatch {
         map.startMechanisms();
         getLogger().info("Starting match!");
         broadcastTitle("Go!", "");
+        broadcastNote(new Note(1, Note.Tone.F, true));
         broadcast("Go!");
     }
 
@@ -109,7 +116,7 @@ public class UmpireMatch {
 
     public void checkUnused() {
         for (UmpireTeam team : teams){
-            if (team.players.size() != 0){
+            if (!team.players.isEmpty()){
                 return;
             }
         }
