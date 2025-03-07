@@ -94,8 +94,8 @@ public class Commands extends HashMap<String, UmpireCommand> {
         String bestMap = MapUtils.findMap(mapName);
         if (bestMap == null){return false;}
 
-        p.sendMessage("Loading Map: " + bestMap);
         MapDescriptor mapDescriptor = new MapDescriptor(bestMap);
+        p.sendMessage(ChatColor.GRAY + "Loading Map: " + ChatColor.WHITE + ChatColor.BOLD + mapDescriptor.name + ChatColor.WHITE);
         UmpireMap umpireMap = new UmpireMap(mapDescriptor);
 
         UmpireMatch match = new UmpireMatch(umpireMap);
@@ -255,8 +255,11 @@ public class Commands extends HashMap<String, UmpireCommand> {
         boolean verbose = false;
         for (String arg : args) {
             getLogger().info("arg: " + arg);
-            if(argTypes.contains(arg)){
+            if(argTypes.contains(arg)) {
                 argType = arg;
+                if(arg.equals("-v")){
+                    verbose = true;
+                }
             }
             else {
                 switch (argType) {
@@ -279,9 +282,6 @@ public class Commands extends HashMap<String, UmpireCommand> {
                         break;
                     case ("-t"):
                         tags.add(arg);
-                        break;
-                    case ("-v"):
-                        verbose = true;
                         break;
                     default:
                         getLogger().info("Default case");
