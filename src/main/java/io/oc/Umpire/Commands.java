@@ -251,7 +251,8 @@ public class Commands extends HashMap<String, UmpireCommand> {
         String name = "";
         Set<String> tags = new HashSet<>();
         String argType = "-p";
-        List<String> argTypes = List.of(new String[]{"-p", "-a", "-n", "-t"});
+        List<String> argTypes = List.of(new String[]{"-p", "-a", "-n", "-t", "-v"});
+        boolean verbose = false;
         for (String arg : args) {
             getLogger().info("arg: " + arg);
             if(argTypes.contains(arg)){
@@ -279,6 +280,9 @@ public class Commands extends HashMap<String, UmpireCommand> {
                     case ("-t"):
                         tags.add(arg);
                         break;
+                    case ("-v"):
+                        verbose = true;
+                        break;
                     default:
                         getLogger().info("Default case");
                         return false;
@@ -293,13 +297,13 @@ public class Commands extends HashMap<String, UmpireCommand> {
             MapDescriptor md = new MapDescriptor(mapFile);
             boolean authorMatch = false;
             for(String mapAuthor : md.authors){
-                if(mapAuthor.contains(author)){
+                if(mapAuthor.toLowerCase().contains(author.toLowerCase())){
                     authorMatch = true;
                     break;
                 }
             }
             if(!authorMatch) continue;
-            if(!md.name.contains(name)) continue;
+            if(!md.name.toLowerCase().contains(name.toLowerCase())) continue;
 
             getLogger().info("md.tags: " + md.tags + ", tags: " + tags);
             if(!md.tags.containsAll(tags)) continue;
@@ -319,10 +323,14 @@ public class Commands extends HashMap<String, UmpireCommand> {
             upperbound = Math.min(page * 10, filtered.size());
             lowerbound = (page - 1) * 10;
 
-            p.sendMessage("Showing Page " + page + " of " + maxPages);
+            p.sendMessage(ChatColor.GRAY + "Showing Page " + page + " of " + maxPages + ChatColor.WHITE);
             for(int i = lowerbound; i < upperbound; i++) {
                 MapDescriptor md = filtered.get(i);
-                p.sendMessage(md.name + " v" + md.version + " by " + String.join(" and ", md.authors));//include other authors
+                if(verbose){
+                    p.sendMessage(md.name + " v" + md.version + " by " + String.join(" and ", md.authors));//include other authors
+                }else{
+                    p.sendMessage(md.name);
+                }
             }
             return true;
         }

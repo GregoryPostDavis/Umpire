@@ -8,8 +8,8 @@ import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static org.bukkit.Bukkit.getLogger;
 
@@ -20,7 +20,7 @@ public class MapDescriptor {
     public List<String> authors;
     public ZipFile zipFile;
     public Document xmlFile;
-    public Set<String> tags;
+    public ArrayList<String> tags;
 
     public MapDescriptor(String mapName){
         this.mapName = mapName;
@@ -32,10 +32,11 @@ public class MapDescriptor {
             FileHeader xmlHeader = zipFile.getFileHeader(rootDir + "/autoreferee.xml");
             //getLogger().info("xmlHeader: " + xmlHeader.toString());
 
-            tags = Set.of();
+            tags = new ArrayList<>();
             try {
                 FileHeader tagsHeader = zipFile.getFileHeader(rootDir + "/tags.txt");
-                tags = Set.of(new String(zipFile.getInputStream(tagsHeader).readAllBytes()).split("\n"));
+                String[] unstripped = new String(zipFile.getInputStream(tagsHeader).readAllBytes()).split("\n");
+                tags = (ArrayList<String>) Arrays.stream(unstripped).map(String::strip).collect(Collectors.toList()); //NASTY
 
             } catch (Exception e) {
                 getLogger().info("No tags.txt file found");
