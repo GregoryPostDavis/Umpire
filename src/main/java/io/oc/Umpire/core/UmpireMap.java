@@ -3,16 +3,13 @@ package io.oc.Umpire.core;
 import io.oc.Umpire.utils.AutorefColors;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.*;
-import org.jdom2.Document;
 import org.jdom2.Element;
-import org.jdom2.input.SAXBuilder;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import static io.oc.Umpire.utils.MapUtils.*;
 import static org.bukkit.Bukkit.getLogger;
@@ -23,62 +20,27 @@ public class UmpireMap {
     //Team Regions
     public World world;
     public String worldName;
-    public String mapName;
+    public MapDescriptor mapDescriptor;
     /*worldName is used to identify the match with the world before the world is loaded
     so that events that happen in a world right at startup are garanteed
     to still able to be associated with a match (eg. liquid flowing needs to be prevented from tick 1).*/
     List<UmpireRegion> regions = new ArrayList<>();
-    public Document xmlFile;
 
     List<Mechanism> mechanisms = new ArrayList<>();
     public List<VictoryCondition> victoryConditions = new ArrayList<>();
-    /*public UmpireMap(String worldFolder, UmpireMatch match, String mapName){
-        this.worldName = worldFolder;
-        this.match = match;
-        this.mapName = mapName;
-    }*/
     public UmpireMap(){}
-    public UmpireMap(String mapName){
-        this.mapName = mapName;
-        this.worldName = makeWorldFolder(mapName);//Might return null if the map file is invalid?
+    public UmpireMap(MapDescriptor mapDescriptor){
+        this.mapDescriptor = mapDescriptor;
+        this.worldName = makeWorldFolder(mapDescriptor.mapName);//Might return null if the map file is invalid?
         getLogger().info("Creating world at: " + this.worldName);
-
-        File xmlFile = new File(this.worldName + "/autoreferee.xml");
-        if (!xmlFile.isFile()) {
-            getLogger().info("XML file not found");
-        }
-        else {
-            try {
-                SAXBuilder saxBuilder = new SAXBuilder();
-                this.xmlFile = saxBuilder.build(xmlFile);
-            } catch (Exception e) {
-                getLogger().info("Failed to parse autoreferee.xml file: " + e);
-            }
-        }
     }
     public World getWorld(){
         return world;
     }
 
-    public void getMetaData(Document doc){
-        Element rootElement = doc.getRootElement();
-        Element meta = rootElement.getChild("meta");
-        String name = meta.getChild("name").getText();
-        String version = meta.getChild("version").getText();
-        List<Element> creatorTags = meta.getChild("creators").getChildren();
-        List<String> authors = creatorTags.stream().map(Element::getText).toList();
-
-        getLogger().info("Name: " + name);
-        getLogger().info("Version: " + version);
-        getLogger().info("Authors: " + authors);
-        getLogger().info("WorldName: " + worldName);
-        getLogger().info("MapName" + mapName);
-
-    }
-
-    public void loadMapFromXML(Document doc, UmpireMatch match){
+    public void loadMapFromXML(UmpireMatch match){
         //Team List and Spawn Points
-        Element rootElement = doc.getRootElement();
+        Element rootElement = this.mapDescriptor.xmlFile.getRootElement();
         List<Element> teamElements = rootElement.getChild("teams").getChildren("team");
         for (Element teamElement : teamElements){
             ChatColor color = AutorefColors.TEAMS_OPTION_COLOR.get(teamElement.getAttributeValue("color").toLowerCase());

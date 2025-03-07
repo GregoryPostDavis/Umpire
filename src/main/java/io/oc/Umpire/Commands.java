@@ -1,7 +1,6 @@
 package io.oc.Umpire;
 
 import static io.oc.Umpire.Umpire.getInstance;
-import static io.oc.Umpire.utils.MapUtils.makeWorldFolder;
 import static org.bukkit.Bukkit.getLogger;
 import static org.bukkit.Bukkit.getPlayer;
 import static org.bukkit.Bukkit.getServer;
@@ -12,7 +11,7 @@ import java.util.HashMap;
 import java.util.Random;
 import java.util.Set;
 
-import io.oc.Umpire.core.UmpireMap;
+import io.oc.Umpire.core.*;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -20,9 +19,6 @@ import org.bukkit.command.BlockCommandSender;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import io.oc.Umpire.core.UmpireMatch;
-import io.oc.Umpire.core.UmpirePlayer;
-import io.oc.Umpire.core.UmpireTeam;
 import io.oc.Umpire.utils.MapUtils;
 
 interface RunUmpireCommand {
@@ -102,7 +98,8 @@ public class Commands extends HashMap<String, UmpireCommand> {
         if (bestMap == null){return false;}
 
         p.sendMessage("Loading Map: " + bestMap);
-        UmpireMap umpireMap = new UmpireMap(bestMap);
+        MapDescriptor mapDescriptor = new MapDescriptor(bestMap);
+        UmpireMap umpireMap = new UmpireMap(mapDescriptor);
 
         UmpireMatch match = new UmpireMatch(umpireMap);
 
@@ -221,7 +218,8 @@ public class Commands extends HashMap<String, UmpireCommand> {
         UmpireMatch oldMatch = up.match;
 
         p.sendMessage("Reloading Map");
-        UmpireMap umpireMap = new UmpireMap(oldMatch.map.mapName);
+        MapDescriptor mapDescriptor = new MapDescriptor(oldMatch.map.mapDescriptor.mapName);
+        UmpireMap umpireMap = new UmpireMap(mapDescriptor);
 
         UmpireMatch match = new UmpireMatch(umpireMap);
 

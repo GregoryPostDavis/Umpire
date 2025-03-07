@@ -1,24 +1,12 @@
 package io.oc.Umpire.core;
 
 import io.oc.Umpire.*;
-import io.oc.Umpire.utils.AutorefColors;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
-import org.bukkit.Location;
-import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
-import org.jdom2.Document;
-import org.jdom2.Element;
-import org.jdom2.input.SAXBuilder;
-
-import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-import static io.oc.Umpire.utils.MapUtils.stringToLocation;
 import static org.bukkit.Bukkit.getLogger;
 
 public class UmpireMatch {
@@ -31,11 +19,10 @@ public class UmpireMatch {
     public boolean isEmpty;
 
     public UmpireMatch(UmpireMap map){
-        //UmpireMap map = new UmpireMap(worldFolder, this, mapName);
         this.map = map;
         map.startWorld();
 
-        loadFromXML(this.map.xmlFile);
+        map.loadMapFromXML(this);
 
         teams.add(obsTeam);
         this.state = State.PREGAME;
@@ -105,12 +92,6 @@ public class UmpireMatch {
         getLogger().info("Starting match!");
         broadcastTitle("Go!", "");
         broadcast("Go!");
-    }
-
-    private void loadFromXML(Document doc){
-        map.getMetaData(doc);
-
-        map.loadMapFromXML(doc, this);
     }
 
     public UmpireTeam getTeam(String teamName){
