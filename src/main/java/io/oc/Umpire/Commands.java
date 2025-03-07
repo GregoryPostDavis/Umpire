@@ -6,10 +6,7 @@ import static org.bukkit.Bukkit.getPlayer;
 import static org.bukkit.Bukkit.getServer;
 
 import java.io.File;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 import io.oc.Umpire.core.*;
 import org.bukkit.Bukkit;
@@ -74,7 +71,7 @@ public class Commands extends HashMap<String, UmpireCommand> {
         this.put("reloadmap", new UmpireCommand(Set.of(0),this::reloadmap, false));
         this.put("joinmatch", new UmpireCommand(Set.of(1),this::joinmatch, false));
         this.put("viewinventory", new UmpireCommand(Set.of(1),this::viewinventory, false));
-        this.put("maps", new UmpireCommand(Set.of(0,1),this::maps,false));
+        this.put("maps", new UmpireCommand(Set.of(0,1,2,3,4,5,6,7,8,9,10),this::maps,false));
     }
     private boolean viewinventory(String[] args, Player p, UmpirePlayer up) {
         Player target = Bukkit.getPlayer(args[0]);
@@ -245,43 +242,91 @@ public class Commands extends HashMap<String, UmpireCommand> {
         p.setGameMode(GameMode.CREATIVE);
         target.match.addPlayer(up);
         p.teleport(target.match.obsTeam.spawnPoint);
-        return false;
+        return true;
     }
     
     private boolean maps(String[] args, Player p, UmpirePlayer up) {
+        int page = 1;
+        String author = "";
+        String name = "";
+        Set<String> tags = new HashSet<>();
+        String argType = "-p";
+        List<String> argTypes = List.of(new String[]{"-p", "-a", "-n", "-t"});
+        for (String arg : args) {
+            getLogger().info("arg: " + arg);
+            if(argTypes.contains(arg)){
+                argType = arg;
+            }
+            else {
+                switch (argType) {
+                    case ("-p"):
+                        try {
+                            page = Integer.parseInt(arg);
+                        } catch (NumberFormatException e) {
+                            getLogger().info("Number format exception trying to parse " + arg);
+                            return false;
+                        }
+                        argType = "";
+                        break;
+                    case ("-a"):
+                        author = arg;
+                        argType = "";
+                        break;
+                    case ("-n"):
+                        name = arg;
+                        argType = "";
+                        break;
+                    case ("-t"):
+                        tags.add(arg);
+                        break;
+                    default:
+                        getLogger().info("Default case");
+                        return false;
+                }
+            }
+        }
+
     	String[] mapFiles = (new File("maps")).list(); //Creates new file 'maps' and then lists everything in the directory 'maps'
+
+        List<MapDescriptor> filtered = new ArrayList<>();
+        for (String mapFile : mapFiles){
+            MapDescriptor md = new MapDescriptor(mapFile);
+            boolean authorMatch = false;
+            for(String mapAuthor : md.authors){
+                if(mapAuthor.contains(author)){
+                    authorMatch = true;
+                    break;
+                }
+            }
+            if(!authorMatch) continue;
+            if(!md.name.contains(name)) continue;
+
+            getLogger().info("md.tags: " + md.tags + ", tags: " + tags);
+            if(!md.tags.containsAll(tags)) continue;
+            filtered.add(md);
+        }
+
     	int upperbound;
     	int lowerbound;
 
-    	if(args.length == 0 || args[0].matches("\\d")) {//if maps [x]
-    		int pageNum;
-    		if(args.length == 0) {
-    			pageNum = 1;
-    		}else {
-    			pageNum = Integer.parseInt(args[0]);
-    		}
-    		
-    		
-    		int maxPages = mapFiles.length/10;
-    		if(mapFiles.length%10 > 0)
-    			maxPages++;
-    		
-    		if(pageNum > maxPages || pageNum < 1) {
-    			p.sendMessage("This page does not exist, there are only " + maxPages + " pages of maps");
-    		}else {
-    			upperbound = Math.min(pageNum * 10, mapFiles.length);
-    			lowerbound = (pageNum - 1) * 10;
-    			
-    			p.sendMessage("Showing Page " + pageNum + " of " + maxPages);
-    			for(int i = lowerbound; i < upperbound; i++) {
-    				p.sendMessage(mapFiles[i]);
-    			}
-    			return true;
-    		}
-    		
-    	}else {
-    		p.sendMessage("Invalid Argument");
-    	}
+        int maxPages = filtered.size()/10;
+        if(filtered.size()%10 > 0)
+            maxPages++;
+
+        if(page > maxPages || page < 1) {
+            p.sendMessage("This page does not exist, there are only " + maxPages + " pages of maps");
+        }else {
+            upperbound = Math.min(page * 10, filtered.size());
+            lowerbound = (page - 1) * 10;
+
+            p.sendMessage("Showing Page " + page + " of " + maxPages);
+            for(int i = lowerbound; i < upperbound; i++) {
+                MapDescriptor md = filtered.get(i);
+                p.sendMessage(md.name + " v" + md.version + " by " + String.join(" and ", md.authors));//include other authors
+            }
+            return true;
+        }
+
     	
     	return false;
     }

@@ -9,6 +9,7 @@ import org.jdom2.input.SAXBuilder;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
 import static org.bukkit.Bukkit.getLogger;
 
@@ -19,7 +20,7 @@ public class MapDescriptor {
     public List<String> authors;
     public ZipFile zipFile;
     public Document xmlFile;
-    public List<String> tags;
+    public Set<String> tags;
 
     public MapDescriptor(String mapName){
         this.mapName = mapName;
@@ -29,12 +30,12 @@ public class MapDescriptor {
             FileHeader firstDir = this.zipFile.getFileHeaders().get(0);
             String rootDir = firstDir.getFileName().split("/")[0];
             FileHeader xmlHeader = zipFile.getFileHeader(rootDir + "/autoreferee.xml");
-            getLogger().info("xmlHeader: " + xmlHeader.toString());
+            //getLogger().info("xmlHeader: " + xmlHeader.toString());
 
-            tags = List.of();
+            tags = Set.of();
             try {
                 FileHeader tagsHeader = zipFile.getFileHeader(rootDir + "/tags.txt");
-                tags = List.of(new String(zipFile.getInputStream(tagsHeader).readAllBytes()).split("\n"));
+                tags = Set.of(new String(zipFile.getInputStream(tagsHeader).readAllBytes()).split("\n"));
 
             } catch (Exception e) {
                 getLogger().info("No tags.txt file found");
@@ -50,11 +51,13 @@ public class MapDescriptor {
             List<Element> creatorTags = meta.getChild("creators").getChildren();
             authors = creatorTags.stream().map(Element::getText).toList();
 
-            getLogger().info("Name: " + name);
+            /*getLogger().info("Name: " + name);
             getLogger().info("Version: " + version);
             getLogger().info("Authors: " + authors);
             getLogger().info("Tags: " + tags);
-            getLogger().info("ZipFile: " + zipFile);
+            getLogger().info("ZipFile: " + zipFile);*/
+            getLogger().info("Tags: " + tags);
+
 
         } catch (IOException | JDOMException e) {
             throw new RuntimeException(e);
