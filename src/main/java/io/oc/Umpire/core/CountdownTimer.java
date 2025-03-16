@@ -1,9 +1,8 @@
 package io.oc.Umpire.core;
 
-import io.oc.Umpire.core.UmpireMatch;
+import org.bukkit.Note;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import static org.bukkit.Bukkit.getLogger;
 
 public class CountdownTimer extends BukkitRunnable{
 
@@ -18,6 +17,9 @@ public class CountdownTimer extends BukkitRunnable{
     @Override
     public void run() {
         match.broadcastTitle(String.valueOf(count), "");
+        if (1 <= count && count <= 3){
+            match.broadcastNote(new Note(0, Note.Tone.F, true));
+        }
         if (count <= 0){
             cancel();//FIXME run keeps getting ran every second, ever aver it finishes...
             match.startMatch();

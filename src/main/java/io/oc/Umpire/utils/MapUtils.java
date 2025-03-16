@@ -108,7 +108,8 @@ public class MapUtils {
                 UmpireMatch match = Umpire.getMatch(file.getName());
                 if (match == null){
                     total++;
-                    UmpireMap delMap = new UmpireMap(file.getName(), null, null);
+                    UmpireMap delMap = new UmpireMap();
+                    delMap.worldName = file.getName();
                     delMap.deload();
                 }
             }
