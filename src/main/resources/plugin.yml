@@ -39,8 +39,9 @@ commands:
     aliases: [vi]
   maps:
     description: view the maps on the server
-    usage: /maps <page>
+    usage: /maps <page> -a <author> -n <name> -t [tags]... -v
     aliases: [m, maplist]
   practice:
     description: puts match into a practice state allowing for cheats
     usage: /practice
+
