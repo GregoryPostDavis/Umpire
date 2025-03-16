@@ -15,9 +15,12 @@ import java.util.Set;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
+import org.bukkit.Material;
 import org.bukkit.command.BlockCommandSender;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 
 import io.oc.Umpire.core.UmpireMatch;
 import io.oc.Umpire.core.UmpirePlayer;
@@ -295,6 +298,18 @@ public class Commands extends HashMap<String, UmpireCommand> {
     }
     
     private boolean practice(String[] args, Player p, UmpirePlayer up) {
+    	Inventory practice = Bukkit.createInventory(null, 9 * 2, ChatColor.BOLD + "Umpire Practice");
+    	ItemStack i = new ItemStack(Material.GLASS);
+    	practice.setItem(0, i);
+    	
+    	
+    	
+    	//practice.setItem(0, new ItemStack().setType(new Material(GLASS)));
+    	
+    	
+    	
+    	
+    	
     	
     	return false;
     }
