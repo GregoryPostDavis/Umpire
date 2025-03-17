@@ -20,6 +20,8 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import com.google.common.collect.Lists;
+
 import io.oc.Umpire.utils.MapUtils;
 
 interface RunUmpireCommand {
@@ -345,19 +347,13 @@ public class Commands extends HashMap<String, UmpireCommand> {
     }
     
     private boolean practice(String[] args, Player p, UmpirePlayer up) {
-    	if(Umpire.practice.contains(Material.GLASS)) {
+    	if(Umpire.practice.contains(Material.OAK_SAPLING)) {
     		//No need to redo items when they're already there
     	}else {
-        	//Test Item
-        	final ItemStack testItem = new ItemStack(Material.GLASS, 1);
-        	final ItemMeta testMeta = testItem.getItemMeta();
-        	testMeta.setDisplayName("Test Item");
-        	testItem.setItemMeta(testMeta);
-        	Umpire.practice.addItem(testItem);
-        	//
+        	Practice prac = new Practice();
+    		prac.setInventory();
         	
     	}
-    	
     	p.openInventory(Umpire.practice);
     	
 

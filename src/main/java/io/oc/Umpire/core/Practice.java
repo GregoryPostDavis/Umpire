@@ -95,11 +95,19 @@ public class Practice {
 		survivalMeta.setLore(Lists.newArrayList("Sets the player's gamemode to Survival"));
 		survivalMode.setItemMeta(survivalMeta);
 		
+		lowArmorMeta.setDisplayName("Leather Armor");
+		lowArmorMeta.setLore(Lists.newArrayList("Gives the player the leather kit"));
+		lowArmor.setItemMeta(lowArmorMeta);
+		
 		//Items 10-18 (Row 2)
 		
 		creativeMeta.setDisplayName("Creative Mode");
 		creativeMeta.setLore(Lists.newArrayList("Sets the player's gamemode to Creative"));
 		creativeMode.setItemMeta(creativeMeta);
+		
+		mediumArmorMeta.setDisplayName("Iron Armor");
+		mediumArmorMeta.setLore(Lists.newArrayList("Gives the player the iron kit"));
+		mediumArmor.setItemMeta(mediumArmorMeta);
 		
 		//Items 19-27 (Row 3)
 		
@@ -107,25 +115,39 @@ public class Practice {
 		spectatorMeta.setLore(Lists.newArrayList("Sets the player's gamemode to Spectator"));
 		spectatorMode.setItemMeta(spectatorMeta);
 		
-		//Add Items 1-9
+		highArmorMeta.setDisplayName("Diamond Armor");
+		highArmorMeta.setLore(Lists.newArrayList("Gives the player the diamond kit"));
+		highArmor.setItemMeta(highArmorMeta);
+		
+		
+		
+		
+		
+		
+		//-----------------------------------------------------------------------
+		
+		//Add Items 0-8
 		Umpire.practice.addItem(survivalMode);
+		Umpire.practice.addItem(lowArmor);
 		
 		
-		for(int i = 0; i < 8; i++) {
+		for(int i = 0; i < 7; i++) {
 			Umpire.practice.addItem(blank);
 		}
 		
-		//Add Items 10-18
+		//Add Items 9-17
 		Umpire.practice.addItem(creativeMode);
+		Umpire.practice.addItem(mediumArmor);
 		
-		for(int i = 0; i < 8; i++) {
+		for(int i = 0; i < 7; i++) {
 			Umpire.practice.addItem(blank);
 		}
 		
-		//Add Items 19-27
+		//Add Items 18-26
 		Umpire.practice.addItem(spectatorMode);
+		Umpire.practice.addItem(highArmor);
 		
-		for(int i = 0; i < 8; i++) {
+		for(int i = 0; i < 7; i++) {
 			Umpire.practice.addItem(blank);
 		}
 		
