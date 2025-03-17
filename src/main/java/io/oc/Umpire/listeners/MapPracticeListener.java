@@ -223,6 +223,7 @@ public class MapPracticeListener implements Listener{
 						if(e.getWhoClicked().getInventory().contains(Material.WATER_BUCKET)) {
 							e.getWhoClicked().getInventory().remove(Material.WATER_BUCKET);
 						}
+						e.getWhoClicked().getInventory().addItem(new ItemStack(Material.WATER_BUCKET));
 						
 						if(e.getWhoClicked().getInventory().contains(Material.COOKED_PORKCHOP)) {
 							e.getWhoClicked().getInventory().remove(Material.COOKED_PORKCHOP);
@@ -345,15 +346,50 @@ public class MapPracticeListener implements Listener{
 						if(e.getWhoClicked().getInventory().contains(Material.WATER_BUCKET)) {
 							e.getWhoClicked().getInventory().remove(Material.WATER_BUCKET);
 						}
+						e.getWhoClicked().getInventory().addItem(new ItemStack(Material.WATER_BUCKET));
 						
 						if(e.getWhoClicked().getInventory().contains(Material.PINK_CONCRETE)) {
 							e.getWhoClicked().getInventory().remove(Material.PINK_CONCRETE);
 						}
 						e.getWhoClicked().getInventory().addItem(new ItemStack(Material.PINK_CONCRETE,64));
 						
-						e.getWhoClicked().getInventory().addItem(new ItemStack(Material.COOKED_PORKCHOP,64));
 						break;
 					case 21:
+						if(e.getWhoClicked().getInventory().contains(Material.WATER_BUCKET)) {
+							e.getWhoClicked().getInventory().remove(Material.WATER_BUCKET);
+						}
+						e.getWhoClicked().getInventory().addItem(new ItemStack(Material.WATER_BUCKET));
+						
+						if(e.getWhoClicked().getInventory().contains(Material.STONE_BUTTON)) {
+							e.getWhoClicked().getInventory().remove(Material.STONE_BUTTON);
+						}
+						e.getWhoClicked().getInventory().addItem(new ItemStack(Material.STONE_BUTTON,32));
+						
+						if(e.getWhoClicked().getInventory().contains(Material.TNT)) {
+							e.getWhoClicked().getInventory().remove(Material.TNT);
+						}
+						e.getWhoClicked().getInventory().addItem(new ItemStack(Material.TNT,64));
+						
+						if(e.getWhoClicked().getInventory().contains(Material.ORANGE_CONCRETE)) {
+							e.getWhoClicked().getInventory().remove(Material.ORANGE_CONCRETE);
+						}
+						e.getWhoClicked().getInventory().addItem(new ItemStack(Material.ORANGE_CONCRETE));
+						
+						if(e.getWhoClicked().getInventory().contains(Material.LADDER)) {
+							e.getWhoClicked().getInventory().remove(Material.LADDER);
+						}
+						e.getWhoClicked().getInventory().addItem(new ItemStack(Material.LADDER,32));
+						
+						if(e.getWhoClicked().getInventory().contains(Material.REDSTONE)) {
+							e.getWhoClicked().getInventory().remove(Material.REDSTONE);
+						}
+						e.getWhoClicked().getInventory().addItem(new ItemStack(Material.REDSTONE,32));
+						
+						
+						
+						
+						
+						
 						break;
 					case 22:
 						break;
