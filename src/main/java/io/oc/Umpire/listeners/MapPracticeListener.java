@@ -1,13 +1,20 @@
 package io.oc.Umpire.listeners;
 
+import java.util.Collection;
+
 import org.bukkit.GameMode;
+import org.bukkit.GameRule;
 import org.bukkit.Material;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import io.oc.Umpire.Umpire;
 
@@ -29,8 +36,8 @@ public class MapPracticeListener implements Listener{
 				
 				
 				if(e.getInventory().equals(Umpire.practice)) {
+					Player p = (Player) e.getWhoClicked();
 					switch(e.getSlot()) {
-					
 					case 0:
 						//Survival Mode
 						e.getWhoClicked().setGameMode(GameMode.SURVIVAL);
@@ -61,6 +68,9 @@ public class MapPracticeListener implements Listener{
 						e.getWhoClicked().getInventory().addItem(new ItemStack(Material.BOW));
 						
 						
+						if(e.getWhoClicked().getInventory().contains(Material.ARROW)) {
+							e.getWhoClicked().getInventory().remove(Material.ARROW);
+						}
 						e.getWhoClicked().getInventory().addItem(new ItemStack(Material.ARROW,64));
 						
 						
@@ -68,16 +78,24 @@ public class MapPracticeListener implements Listener{
 					case 2:
 						break;
 					case 3:
+						e.getWhoClicked().getInventory().addItem(new ItemStack(Material.ARROW,64));
 						break;
 					case 4:
 						break;
 					case 5:
+						p.getWorld().setTime(6000);
 						break;
 					case 6:
+			
 						break;
 					case 7:
 						break;
 					case 8:
+						if(e.getWhoClicked().hasPotionEffect(PotionEffectType.NIGHT_VISION)) {
+							e.getWhoClicked().removePotionEffect(PotionEffectType.NIGHT_VISION);
+						}else {
+							e.getWhoClicked().addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 9999999, 1));
+						}
 						break;
 					case 9:
 						//Creative Mode
@@ -106,15 +124,34 @@ public class MapPracticeListener implements Listener{
 							e.getWhoClicked().getInventory().remove(Material.BOW);
 						}
 						e.getWhoClicked().getInventory().addItem(new ItemStack(Material.BOW));
+						
+						if(e.getWhoClicked().getInventory().contains(Material.ARROW)) {
+							e.getWhoClicked().getInventory().remove(Material.ARROW);
+						}
 						e.getWhoClicked().getInventory().addItem(new ItemStack(Material.ARROW,64));
+						
 						break;
 					case 11:
 						break;
 					case 12:
+						p.setLevel(20);
+						
+						if(e.getWhoClicked().getInventory().contains(Material.ENCHANTING_TABLE)) {
+							// nothing
+						}else {
+							e.getWhoClicked().getInventory().addItem(new ItemStack(Material.ENCHANTING_TABLE));
+						}
+						
+						if(e.getWhoClicked().getInventory().contains(Material.LAPIS_LAZULI)) {
+							e.getWhoClicked().getInventory().remove(Material.LAPIS_LAZULI);
+						}
+							e.getWhoClicked().getInventory().addItem(new ItemStack(Material.LAPIS_LAZULI, 32));
+						
 						break;
 					case 13:
 						break;
 					case 14:
+						p.getWorld().setTime(18000);
 						break;
 					case 15:
 						break;
@@ -148,7 +185,12 @@ public class MapPracticeListener implements Listener{
 							e.getWhoClicked().getInventory().remove(Material.BOW);
 						}
 						e.getWhoClicked().getInventory().addItem(new ItemStack(Material.BOW));
+						
+						if(e.getWhoClicked().getInventory().contains(Material.ARROW)) {
+							e.getWhoClicked().getInventory().remove(Material.ARROW);
+						}
 						e.getWhoClicked().getInventory().addItem(new ItemStack(Material.ARROW,64));
+						
 						break;
 					case 20:
 						break;
@@ -157,12 +199,22 @@ public class MapPracticeListener implements Listener{
 					case 22:
 						break;
 					case 23:
+						if(p.getWorld().getGameRuleValue(GameRule.DO_DAYLIGHT_CYCLE)) {
+							p.getWorld().setGameRule(GameRule.DO_DAYLIGHT_CYCLE, false);
+						}else {
+							p.getWorld().setGameRule(GameRule.DO_DAYLIGHT_CYCLE, true);
+						}
+						
 						break;
 					case 24:
 						break;
 					case 25:
 						break;
 					case 26:
+						
+						e.getWhoClicked().setHealth(p.getAttribute(Attribute.MAX_HEALTH).getValue());
+						e.getWhoClicked().setFoodLevel(20);
+						e.getWhoClicked().setSaturation(5);
 						break;
 					}
 				}
