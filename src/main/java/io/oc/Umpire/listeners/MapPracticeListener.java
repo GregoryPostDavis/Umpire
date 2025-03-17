@@ -76,6 +76,55 @@ public class MapPracticeListener implements Listener{
 						
 						break;
 					case 2:
+						if(e.getWhoClicked().getInventory().contains(Material.STONE_PICKAXE)) {
+							e.getWhoClicked().getInventory().remove(Material.STONE_PICKAXE);
+						}
+							e.getWhoClicked().getInventory().addItem(new ItemStack(Material.STONE_PICKAXE));
+						
+						if(e.getWhoClicked().getInventory().contains(Material.IRON_PICKAXE)) {
+							e.getWhoClicked().getInventory().remove(Material.IRON_PICKAXE);
+						}
+						
+						if(e.getWhoClicked().getInventory().contains(Material.DIAMOND_PICKAXE)) {
+							e.getWhoClicked().getInventory().remove(Material.DIAMOND_PICKAXE);
+						}
+
+						if(e.getWhoClicked().getInventory().contains(Material.STONE_AXE)) {
+							e.getWhoClicked().getInventory().remove(Material.STONE_AXE);
+						}
+						e.getWhoClicked().getInventory().addItem(new ItemStack(Material.STONE_AXE));
+						
+						if(e.getWhoClicked().getInventory().contains(Material.IRON_AXE)) {
+							e.getWhoClicked().getInventory().remove(Material.IRON_AXE);
+						}
+						
+						if(e.getWhoClicked().getInventory().contains(Material.DIAMOND_AXE)) {
+							e.getWhoClicked().getInventory().remove(Material.DIAMOND_AXE);
+						}
+						
+						if(e.getWhoClicked().getInventory().contains(Material.STONE_SHOVEL)) {
+							e.getWhoClicked().getInventory().remove(Material.STONE_SHOVEL);
+						}
+						e.getWhoClicked().getInventory().addItem(new ItemStack(Material.STONE_SHOVEL));
+						
+						if(e.getWhoClicked().getInventory().contains(Material.IRON_SHOVEL)) {
+							e.getWhoClicked().getInventory().remove(Material.IRON_SHOVEL);
+						}
+						
+						if(e.getWhoClicked().getInventory().contains(Material.DIAMOND_SHOVEL)) {
+							e.getWhoClicked().getInventory().remove(Material.DIAMOND_SHOVEL);
+						}
+						
+						if(e.getWhoClicked().getInventory().contains(Material.COOKED_PORKCHOP)) {
+							e.getWhoClicked().getInventory().remove(Material.COOKED_PORKCHOP);
+						}
+						e.getWhoClicked().getInventory().addItem(new ItemStack(Material.COOKED_PORKCHOP,64));
+						
+						if(e.getWhoClicked().getInventory().contains(Material.PINK_CONCRETE)) {
+							e.getWhoClicked().getInventory().remove(Material.PINK_CONCRETE);
+						}
+						e.getWhoClicked().getInventory().addItem(new ItemStack(Material.PINK_CONCRETE,64));
+						
 						break;
 					case 3:
 						e.getWhoClicked().getInventory().addItem(new ItemStack(Material.ARROW,64));
@@ -132,7 +181,58 @@ public class MapPracticeListener implements Listener{
 						
 						break;
 					case 11:
-						break;
+						if(e.getWhoClicked().getInventory().contains(Material.STONE_PICKAXE)) {
+							e.getWhoClicked().getInventory().remove(Material.STONE_PICKAXE);
+						}
+						
+						if(e.getWhoClicked().getInventory().contains(Material.IRON_PICKAXE)) {
+							e.getWhoClicked().getInventory().remove(Material.IRON_PICKAXE);
+						}
+						e.getWhoClicked().getInventory().addItem(new ItemStack(Material.IRON_PICKAXE));
+						
+						if(e.getWhoClicked().getInventory().contains(Material.DIAMOND_PICKAXE)) {
+							e.getWhoClicked().getInventory().remove(Material.DIAMOND_PICKAXE);
+						}
+
+						if(e.getWhoClicked().getInventory().contains(Material.STONE_AXE)) {
+							e.getWhoClicked().getInventory().remove(Material.STONE_AXE);
+						}
+						
+						if(e.getWhoClicked().getInventory().contains(Material.IRON_AXE)) {
+							e.getWhoClicked().getInventory().remove(Material.IRON_AXE);
+						}
+						e.getWhoClicked().getInventory().addItem(new ItemStack(Material.IRON_AXE));
+						
+						if(e.getWhoClicked().getInventory().contains(Material.DIAMOND_AXE)) {
+							e.getWhoClicked().getInventory().remove(Material.DIAMOND_AXE);
+						}
+						
+						if(e.getWhoClicked().getInventory().contains(Material.STONE_SHOVEL)) {
+							e.getWhoClicked().getInventory().remove(Material.STONE_SHOVEL);
+						}
+						
+						if(e.getWhoClicked().getInventory().contains(Material.IRON_SHOVEL)) {
+							e.getWhoClicked().getInventory().remove(Material.IRON_SHOVEL);							
+						}
+						e.getWhoClicked().getInventory().addItem(new ItemStack(Material.IRON_SHOVEL));
+						
+						if(e.getWhoClicked().getInventory().contains(Material.DIAMOND_SHOVEL)) {
+							e.getWhoClicked().getInventory().remove(Material.DIAMOND_SHOVEL);
+						}
+						
+						if(e.getWhoClicked().getInventory().contains(Material.WATER_BUCKET)) {
+							e.getWhoClicked().getInventory().remove(Material.WATER_BUCKET);
+						}
+						
+						if(e.getWhoClicked().getInventory().contains(Material.COOKED_PORKCHOP)) {
+							e.getWhoClicked().getInventory().remove(Material.COOKED_PORKCHOP);
+						}
+						e.getWhoClicked().getInventory().addItem(new ItemStack(Material.COOKED_PORKCHOP,64));
+						
+						if(e.getWhoClicked().getInventory().contains(Material.PINK_CONCRETE)) {
+							e.getWhoClicked().getInventory().remove(Material.PINK_CONCRETE);
+						}
+						e.getWhoClicked().getInventory().addItem(new ItemStack(Material.PINK_CONCRETE,64));
 					case 12:
 						p.setLevel(20);
 						
@@ -193,6 +293,65 @@ public class MapPracticeListener implements Listener{
 						
 						break;
 					case 20:
+						if(e.getWhoClicked().getInventory().contains(Material.STONE_PICKAXE)) {
+							e.getWhoClicked().getInventory().remove(Material.STONE_PICKAXE);
+						}
+						
+						if(e.getWhoClicked().getInventory().contains(Material.IRON_PICKAXE)) {
+							e.getWhoClicked().getInventory().remove(Material.IRON_PICKAXE);
+						}
+						
+						if(e.getWhoClicked().getInventory().contains(Material.DIAMOND_PICKAXE)) {
+							e.getWhoClicked().getInventory().remove(Material.DIAMOND_PICKAXE);
+						}
+						e.getWhoClicked().getInventory().addItem(new ItemStack(Material.DIAMOND_PICKAXE));
+
+						if(e.getWhoClicked().getInventory().contains(Material.STONE_AXE)) {
+							e.getWhoClicked().getInventory().remove(Material.STONE_AXE);
+						}
+						
+						if(e.getWhoClicked().getInventory().contains(Material.IRON_AXE)) {
+							e.getWhoClicked().getInventory().remove(Material.IRON_AXE);
+						}
+						
+						if(e.getWhoClicked().getInventory().contains(Material.DIAMOND_AXE)) {
+							e.getWhoClicked().getInventory().remove(Material.DIAMOND_AXE);
+						}
+						e.getWhoClicked().getInventory().addItem(new ItemStack(Material.DIAMOND_AXE));
+						
+						if(e.getWhoClicked().getInventory().contains(Material.STONE_SHOVEL)) {
+							e.getWhoClicked().getInventory().remove(Material.STONE_SHOVEL);
+						}
+						
+						if(e.getWhoClicked().getInventory().contains(Material.IRON_SHOVEL)) {
+							e.getWhoClicked().getInventory().remove(Material.IRON_SHOVEL);
+						}
+						
+						if(e.getWhoClicked().getInventory().contains(Material.DIAMOND_SHOVEL)) {
+							e.getWhoClicked().getInventory().remove(Material.DIAMOND_SHOVEL);
+						}
+						e.getWhoClicked().getInventory().addItem(new ItemStack(Material.DIAMOND_SHOVEL));
+						
+						if(e.getWhoClicked().getInventory().contains(Material.TORCH)) {
+							e.getWhoClicked().getInventory().remove(Material.TORCH);
+						}
+						e.getWhoClicked().getInventory().addItem(new ItemStack(Material.TORCH,64));
+						
+						if(e.getWhoClicked().getInventory().contains(Material.COOKED_PORKCHOP)) {
+							e.getWhoClicked().getInventory().remove(Material.COOKED_PORKCHOP);
+						}
+						e.getWhoClicked().getInventory().addItem(new ItemStack(Material.COOKED_PORKCHOP,64));
+						
+						if(e.getWhoClicked().getInventory().contains(Material.WATER_BUCKET)) {
+							e.getWhoClicked().getInventory().remove(Material.WATER_BUCKET);
+						}
+						
+						if(e.getWhoClicked().getInventory().contains(Material.PINK_CONCRETE)) {
+							e.getWhoClicked().getInventory().remove(Material.PINK_CONCRETE);
+						}
+						e.getWhoClicked().getInventory().addItem(new ItemStack(Material.PINK_CONCRETE,64));
+						
+						e.getWhoClicked().getInventory().addItem(new ItemStack(Material.COOKED_PORKCHOP,64));
 						break;
 					case 21:
 						break;
