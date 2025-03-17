@@ -18,6 +18,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import io.oc.Umpire.utils.MapUtils;
 
@@ -75,6 +76,7 @@ public class Commands extends HashMap<String, UmpireCommand> {
         this.put("joinmatch", new UmpireCommand(Set.of(1),this::joinmatch, false));
         this.put("viewinventory", new UmpireCommand(Set.of(1),this::viewinventory, false));
         this.put("maps", new UmpireCommand(Set.of(0,1,2,3,4,5,6,7,8,9,10),this::maps,false));
+        this.put("practice", new UmpireCommand(Set.of(0),this::practice,false));
     }
     private boolean viewinventory(String[] args, Player p, UmpirePlayer up) {
         Player target = Bukkit.getPlayer(args[0]);
@@ -343,20 +345,24 @@ public class Commands extends HashMap<String, UmpireCommand> {
     }
     
     private boolean practice(String[] args, Player p, UmpirePlayer up) {
-    	Inventory practice = Bukkit.createInventory(null, 9 * 2, ChatColor.BOLD + "Umpire Practice");
-    	ItemStack i = new ItemStack(Material.GLASS);
-    	practice.setItem(0, i);
+    	if(Umpire.practice.contains(Material.GLASS)) {
+    		//No need to redo items when they're already there
+    	}else {
+        	//Test Item
+        	final ItemStack testItem = new ItemStack(Material.GLASS, 1);
+        	final ItemMeta testMeta = testItem.getItemMeta();
+        	testMeta.setDisplayName("Test Item");
+        	testItem.setItemMeta(testMeta);
+        	Umpire.practice.addItem(testItem);
+        	//
+        	
+    	}
     	
+    	p.openInventory(Umpire.practice);
     	
+
     	
-    	//practice.setItem(0, new ItemStack().setType(new Material(GLASS)));
-    	
-    	
-    	
-    	
-    	
-    	
-    	return false;
+    	return true;
     }
     
 }
