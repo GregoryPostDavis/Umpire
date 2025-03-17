@@ -31,8 +31,7 @@ public class MapPracticeListener implements Listener{
 		if(e.getInventory().equals(Umpire.practice)) {
 			e.setCancelled(true);
 			if(e.getClick().equals(ClickType.RIGHT) || e.getClick().equals(ClickType.LEFT)) {
-				e.getWhoClicked().sendMessage("Slot: " + e.getSlot());
-				
+//				e.getWhoClicked().sendMessage("Slot: " + e.getSlot());
 				
 				if(e.getInventory().equals(Umpire.practice)) {
 					Player p = (Player) e.getWhoClicked();

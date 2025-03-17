@@ -84,10 +84,6 @@ public class Practice {
 		blankMeta.setLore(Lists.newArrayList("There is no command associated"));
 		blankMeta.setMaxStackSize(1);
 		blank.setItemMeta(blankMeta);
-//		testMeta.setDisplayName("Test Item");
-//		testMeta.setLore(Lists.newArrayList("Test Lore"));
-//		testItem.setItemMeta(testMeta);
-//		Umpire.practice.addItem(testItem);
 	
 		//Items 1-9 (Row 1)
 		
@@ -103,6 +99,22 @@ public class Practice {
 		lowToolMeta.setLore(Lists.newArrayList("Gives the player basic tools"));
 		lowTools.setItemMeta(lowToolMeta);
 		
+		arrowMeta.setDisplayName("Give Arrows");
+		arrowMeta.setLore(Lists.newArrayList("Gives the player another stack of Arrows"));
+		arrows.setItemMeta(arrowMeta);
+		
+		saveInventoryMeta.setDisplayName("Save Inventory");
+		saveInventoryMeta.setLore(Lists.newArrayList("Saves the player's inventory"));
+		saveInventory.setItemMeta(saveInventoryMeta);
+		
+		dayMeta.setDisplayName("Set Time to Day");
+		dayMeta.setLore(Lists.newArrayList("Sets the time to Day"));
+		setDay.setItemMeta(dayMeta);
+		
+		nightVisMeta.setDisplayName("Toggle Night Vision");
+		nightVisMeta.setLore(Lists.newArrayList("Toggles the Night Vision Potion Effect on the Player"));
+		nightVision.setItemMeta(nightVisMeta);
+		
 		//Items 10-18 (Row 2)
 		
 		creativeMeta.setDisplayName("Creative Mode");
@@ -116,6 +128,19 @@ public class Practice {
 		mediumToolMeta.setDisplayName("Standard Tools");
 		mediumToolMeta.setLore(Lists.newArrayList("Gives the player standard tools"));
 		mediumTools.setItemMeta(mediumToolMeta);
+		
+		expMeta.setDisplayName("Enchanting Tools");
+		expMeta.setLore(Lists.newArrayList("Gives the players the tools to enchant their gear"));
+		exp.setItemMeta(expMeta);
+		
+		loadInventoryMeta.setDisplayName("Load Inventory");
+		loadInventoryMeta.setLore(Lists.newArrayList("Loads the Saved Inventory"));
+		loadInventory.setItemMeta(loadInventoryMeta);
+		
+		
+		nightMeta.setDisplayName("Night Time");
+		nightMeta.setLore(Lists.newArrayList("Sets the time of day to Night"));
+		setNight.setItemMeta(nightMeta);
 		
 		//Items 19-27 (Row 3)
 		
@@ -132,8 +157,21 @@ public class Practice {
 		highTools.setItemMeta(highToolMeta);
 		
 		
+		tntMeta.setDisplayName("TNT Kit");
+		tntMeta.setLore(Lists.newArrayList("Gives the player the necessary supplies to cannon"));
+		tnt.setItemMeta(tntMeta);
 		
+		clearSavedInventoryMeta.setDisplayName("Clear Saved Inventory");
+		clearSavedInventoryMeta.setLore(Lists.newArrayList("Clears the Saved Inventory"));
+		clearSavedInventory.setItemMeta(clearSavedInventoryMeta);
 		
+		freezeMeta.setDisplayName("Toggle Daylight Cycle");
+		freezeMeta.setLore(Lists.newArrayList("Toggles the Day/Night Cycle"));
+		freezeTime.setItemMeta(freezeMeta);
+		
+		restoreMeta.setDisplayName("Restore Player");
+		restoreMeta.setLore(Lists.newArrayList("Heals and Feeds the player"));
+		restore.setItemMeta(restoreMeta);
 		
 		
 		//-----------------------------------------------------------------------
