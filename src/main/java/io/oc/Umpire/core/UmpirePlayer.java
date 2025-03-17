@@ -1,11 +1,13 @@
 package io.oc.Umpire.core;
 
+import static org.bukkit.Bukkit.getLogger;
+
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.potion.PotionEffect;
-
-import static org.bukkit.Bukkit.getLogger;
 
 public class UmpirePlayer {
     public UmpirePlayer(Player bukkitPlayer){
@@ -15,10 +17,20 @@ public class UmpirePlayer {
     public UmpireTeam team;
     public UmpireMatch match;
     public Player bukkitPlayer;
+    
+//    public Inventory playerInventory = Bukkit.createInventory(bukkitPlayer, 9 * 4);
+//    public Inventory offhand = Bukkit.createInventory(null, 1);
+//    public Inventory playerHelmet = Bukkit.createInventory(null, 1);
+//    public Inventory playerChestplate = Bukkit.createInventory(null, 1);
+//    public Inventory playerLeggings = Bukkit.createInventory(null, 1);
+//    public Inventory playerBoots = Bukkit.createInventory(null, 1);
+    
     public void setColor(ChatColor color){
         bukkitPlayer.setDisplayName(color + bukkitPlayer.getName() + ChatColor.WHITE);
         bukkitPlayer.setPlayerListName(color + bukkitPlayer.getName() + ChatColor.WHITE);
     }
+    
+    
 
     public void clearColor(){
         setColor(ChatColor.WHITE);
@@ -36,6 +48,8 @@ public class UmpirePlayer {
     	for(PotionEffect pe : bukkitPlayer.getActivePotionEffects()) {
     		bukkitPlayer.removePotionEffect(pe.getType());
     	}
+    	
+//    	playerInventory.clear();
     	
     }
 }
