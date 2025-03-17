@@ -1,7 +1,5 @@
 package io.oc.Umpire.listeners;
 
-import java.util.Collection;
-
 import org.bukkit.GameMode;
 import org.bukkit.GameRule;
 import org.bukkit.Material;
@@ -17,6 +15,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import io.oc.Umpire.Umpire;
+import io.oc.Umpire.core.UmpirePlayer;
 
 public class MapPracticeListener implements Listener{
 
@@ -37,6 +36,8 @@ public class MapPracticeListener implements Listener{
 				
 				if(e.getInventory().equals(Umpire.practice)) {
 					Player p = (Player) e.getWhoClicked();
+					UmpirePlayer up = (UmpirePlayer) Umpire.getPlayer(p);
+					
 					switch(e.getSlot()) {
 					case 0:
 						//Survival Mode
@@ -130,6 +131,8 @@ public class MapPracticeListener implements Listener{
 						e.getWhoClicked().getInventory().addItem(new ItemStack(Material.ARROW,64));
 						break;
 					case 4:
+						up.saveArmor();
+						up.saveInventory();
 						break;
 					case 5:
 						p.getWorld().setTime(6000);
@@ -250,6 +253,9 @@ public class MapPracticeListener implements Listener{
 						
 						break;
 					case 13:
+						up.setInventory();
+						up.setArmor();
+						
 						break;
 					case 14:
 						p.getWorld().setTime(18000);
@@ -373,7 +379,7 @@ public class MapPracticeListener implements Listener{
 						if(e.getWhoClicked().getInventory().contains(Material.ORANGE_CONCRETE)) {
 							e.getWhoClicked().getInventory().remove(Material.ORANGE_CONCRETE);
 						}
-						e.getWhoClicked().getInventory().addItem(new ItemStack(Material.ORANGE_CONCRETE));
+						e.getWhoClicked().getInventory().addItem(new ItemStack(Material.ORANGE_CONCRETE,64));
 						
 						if(e.getWhoClicked().getInventory().contains(Material.LADDER)) {
 							e.getWhoClicked().getInventory().remove(Material.LADDER);
@@ -384,14 +390,10 @@ public class MapPracticeListener implements Listener{
 							e.getWhoClicked().getInventory().remove(Material.REDSTONE);
 						}
 						e.getWhoClicked().getInventory().addItem(new ItemStack(Material.REDSTONE,32));
-						
-						
-						
-						
-						
-						
 						break;
 					case 22:
+						up.clearArmor();
+						up.clearInventory();
 						break;
 					case 23:
 						if(p.getWorld().getGameRuleValue(GameRule.DO_DAYLIGHT_CYCLE)) {
@@ -406,7 +408,6 @@ public class MapPracticeListener implements Listener{
 					case 25:
 						break;
 					case 26:
-						
 						e.getWhoClicked().setHealth(p.getAttribute(Attribute.MAX_HEALTH).getValue());
 						e.getWhoClicked().setFoodLevel(20);
 						e.getWhoClicked().setSaturation(5);
