@@ -37,9 +37,9 @@ public class Practice {
 	final ItemStack mediumTools = new ItemStack(Material.IRON_PICKAXE,1);
 	final ItemStack highTools = new ItemStack(Material.DIAMOND_PICKAXE,1);
 	
-	final ItemMeta lowToolsMeta = testItem.getItemMeta();
-	final ItemMeta mediumToolsMeta = testItem.getItemMeta();
-	final ItemMeta highToolsMeta = testItem.getItemMeta();
+	final ItemMeta lowToolMeta = testItem.getItemMeta();
+	final ItemMeta mediumToolMeta = testItem.getItemMeta();
+	final ItemMeta highToolMeta = testItem.getItemMeta();
 	
 	//Extra Sets
 	final ItemStack arrows = new ItemStack(Material.ARROW,1);
@@ -52,7 +52,7 @@ public class Practice {
 	
 	//Inventory Management
 	final ItemStack saveInventory = new ItemStack(Material.HONEY_BLOCK,1);
-	final ItemStack loadIventory = new ItemStack(Material.HONEY_BOTTLE,1);
+	final ItemStack loadInventory = new ItemStack(Material.HONEY_BOTTLE,1);
 	final ItemStack clearSavedInventory = new ItemStack(Material.GLASS_BOTTLE,1);
 	
 	final ItemMeta saveInventoryMeta = testItem.getItemMeta();
@@ -99,6 +99,10 @@ public class Practice {
 		lowArmorMeta.setLore(Lists.newArrayList("Gives the player the leather kit"));
 		lowArmor.setItemMeta(lowArmorMeta);
 		
+		lowToolMeta.setDisplayName("Basic Tools");
+		lowToolMeta.setLore(Lists.newArrayList("Gives the player basic tools"));
+		lowTools.setItemMeta(lowToolMeta);
+		
 		//Items 10-18 (Row 2)
 		
 		creativeMeta.setDisplayName("Creative Mode");
@@ -108,6 +112,10 @@ public class Practice {
 		mediumArmorMeta.setDisplayName("Iron Armor");
 		mediumArmorMeta.setLore(Lists.newArrayList("Gives the player the iron kit"));
 		mediumArmor.setItemMeta(mediumArmorMeta);
+		
+		mediumToolMeta.setDisplayName("Standard Tools");
+		mediumToolMeta.setLore(Lists.newArrayList("Gives the player standard tools"));
+		mediumTools.setItemMeta(mediumToolMeta);
 		
 		//Items 19-27 (Row 3)
 		
@@ -119,6 +127,10 @@ public class Practice {
 		highArmorMeta.setLore(Lists.newArrayList("Gives the player the diamond kit"));
 		highArmor.setItemMeta(highArmorMeta);
 		
+		highToolMeta.setDisplayName("Improved Tools");
+		highToolMeta.setLore(Lists.newArrayList("Gives the player Improved tools"));
+		highTools.setItemMeta(highToolMeta);
+		
 		
 		
 		
@@ -129,27 +141,42 @@ public class Practice {
 		//Add Items 0-8
 		Umpire.practice.addItem(survivalMode);
 		Umpire.practice.addItem(lowArmor);
+		Umpire.practice.addItem(lowTools);
+		Umpire.practice.addItem(arrows);
+		Umpire.practice.addItem(saveInventory);
+		Umpire.practice.addItem(setDay);
 		
-		
-		for(int i = 0; i < 7; i++) {
+		for(int i = 0; i < 2; i++) {
 			Umpire.practice.addItem(blank);
 		}
+		
+		Umpire.practice.addItem(nightVision);
 		
 		//Add Items 9-17
 		Umpire.practice.addItem(creativeMode);
 		Umpire.practice.addItem(mediumArmor);
+		Umpire.practice.addItem(mediumTools);
+		Umpire.practice.addItem(exp);
+		Umpire.practice.addItem(loadInventory);
+		Umpire.practice.addItem(setNight);
 		
-		for(int i = 0; i < 7; i++) {
+		for(int i = 0; i < 3; i++) {
 			Umpire.practice.addItem(blank);
 		}
 		
 		//Add Items 18-26
 		Umpire.practice.addItem(spectatorMode);
 		Umpire.practice.addItem(highArmor);
+		Umpire.practice.addItem(highTools);
+		Umpire.practice.addItem(tnt);
+		Umpire.practice.addItem(clearSavedInventory);
+		Umpire.practice.addItem(freezeTime);
 		
-		for(int i = 0; i < 7; i++) {
+		for(int i = 0; i < 2; i++) {
 			Umpire.practice.addItem(blank);
 		}
+		
+		Umpire.practice.addItem(restore);
 		
 	}
 	
