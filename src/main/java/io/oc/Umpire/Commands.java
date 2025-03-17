@@ -9,18 +9,13 @@ import java.io.File;
 import java.util.*;
 
 import io.oc.Umpire.core.*;
+import io.oc.Umpire.practice.Practice;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
-import org.bukkit.Material;
 import org.bukkit.command.BlockCommandSender;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-
-import com.google.common.collect.Lists;
 
 import io.oc.Umpire.utils.MapUtils;
 
@@ -347,14 +342,12 @@ public class Commands extends HashMap<String, UmpireCommand> {
     }
     
     private boolean practice(String[] args, Player p, UmpirePlayer up) {
-    	if(Umpire.practice.contains(Material.OAK_SAPLING)) {
-    		//No need to redo items when they're already there
-    		//Make sure to update OAK_SAPLING to whatever 'Survival Mode' is changed to if its ever changed
-    	}else {
-        	Practice prac = new Practice();
-    		prac.setInventory();
-    	}
-    	p.openInventory(Umpire.practice);
+        //No need to redo items when they're already there
+        if(Practice.practiceInventory == null) {
+            Practice.init();
+        }
+
+    	p.openInventory(Practice.practiceInventory);
     	return true;
     }
     

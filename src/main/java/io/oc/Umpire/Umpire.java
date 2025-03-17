@@ -32,7 +32,6 @@ public class Umpire extends JavaPlugin{
     public Set<UmpireMatch> matches = new HashSet<>();
     private static Set<UmpirePlayer> players = new HashSet<>();
     public static Scoreboard scoreboard;
-    public static Inventory practice = Bukkit.createInventory(null, 9 * 3, ChatColor.BOLD + "Umpire Practice");
 
     @Override
     public void onEnable() {

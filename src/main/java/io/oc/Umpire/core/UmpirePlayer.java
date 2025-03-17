@@ -2,11 +2,9 @@ package io.oc.Umpire.core;
 
 import static org.bukkit.Bukkit.getLogger;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 
@@ -19,8 +17,8 @@ public class UmpirePlayer {
     public UmpireMatch match;
     public Player bukkitPlayer;
     
-    public ItemStack[] playerInventory = new ItemStack[37];
-    public ItemStack[] playerArmor = new ItemStack[4];
+    public ItemStack[] savedInventory = new ItemStack[37];
+    public ItemStack[] savedArmor = new ItemStack[4];
 
     
     public void setColor(ChatColor color){
@@ -48,46 +46,46 @@ public class UmpirePlayer {
     	}
     }
     
-    public void setArmor() {
-    	bukkitPlayer.getInventory().setItem(36, playerArmor[0]);
-    	bukkitPlayer.getInventory().setItem(37, playerArmor[1]);
-    	bukkitPlayer.getInventory().setItem(38, playerArmor[2]);
-    	bukkitPlayer.getInventory().setItem(39, playerArmor[3]);
+    public void loadArmor() {
+    	bukkitPlayer.getInventory().setItem(36, savedArmor[0]);
+    	bukkitPlayer.getInventory().setItem(37, savedArmor[1]);
+    	bukkitPlayer.getInventory().setItem(38, savedArmor[2]);
+    	bukkitPlayer.getInventory().setItem(39, savedArmor[3]);
 
     }
     
     public void saveArmor() {
-    	playerArmor[0] = bukkitPlayer.getInventory().getItem(36);
-    	playerArmor[1] = bukkitPlayer.getInventory().getItem(37);
-    	playerArmor[2] = bukkitPlayer.getInventory().getItem(38);
-    	playerArmor[3] = bukkitPlayer.getInventory().getItem(39);
+    	savedArmor[0] = bukkitPlayer.getInventory().getItem(36);
+    	savedArmor[1] = bukkitPlayer.getInventory().getItem(37);
+    	savedArmor[2] = bukkitPlayer.getInventory().getItem(38);
+    	savedArmor[3] = bukkitPlayer.getInventory().getItem(39);
     }
     
-    public void setInventory() {
-    	bukkitPlayer.getInventory().setItem(40, playerInventory[36]);
+    public void loadInventory() {
+    	bukkitPlayer.getInventory().setItem(40, savedInventory[36]);
     	
     	for(int x = 0; x < 36; x++) {
-    		bukkitPlayer.getInventory().setItem(x, playerInventory[x]);
+    		bukkitPlayer.getInventory().setItem(x, savedInventory[x]);
     	}
     }
     
     public void saveInventory() {
-    	playerInventory[36] = bukkitPlayer.getInventory().getItem(40);
+    	savedInventory[36] = bukkitPlayer.getInventory().getItem(40);
     	
     	for(int x = 0; x < 36; x++) {
-    		playerInventory[x] = bukkitPlayer.getInventory().getItem(x);
+    		savedInventory[x] = bukkitPlayer.getInventory().getItem(x);
     	}
     }
     
     public void clearInventory() {
-    	for(int x = 0; x < playerInventory.length; x++) {
-    		playerInventory[x] = null;
+    	for(int x = 0; x < savedInventory.length; x++) {
+    		savedInventory[x] = null;
     	}
     }
     
     public void clearArmor() {
-    	for(int x = 0; x < playerArmor.length; x++) {
-    		playerArmor[x] = null;
+    	for(int x = 0; x < savedArmor.length; x++) {
+    		savedArmor[x] = null;
     	}
     }
     
