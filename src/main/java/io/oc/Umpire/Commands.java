@@ -349,15 +349,12 @@ public class Commands extends HashMap<String, UmpireCommand> {
     private boolean practice(String[] args, Player p, UmpirePlayer up) {
     	if(Umpire.practice.contains(Material.OAK_SAPLING)) {
     		//No need to redo items when they're already there
+    		//Make sure to update OAK_SAPLING to whatever 'Survival Mode' is changed to if its ever changed
     	}else {
         	Practice prac = new Practice();
     		prac.setInventory();
-        	
     	}
     	p.openInventory(Umpire.practice);
-    	
-
-    	
     	return true;
     }
     
